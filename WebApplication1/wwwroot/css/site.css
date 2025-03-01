@@ -1,0 +1,11 @@
+.moonphoto {
+    background-image: url("../images/main/Moon.png");
+    background-repeat: no-repeat;
+    background-position: top;
+    display: block;
+    height: 100vh;
+    background-size: contain;
+}
+h1{
+    color: white;
+}
