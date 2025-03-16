@@ -17,6 +17,7 @@ h1 {
 p {
     color: white;
     font-size: 20px !important;
+    text-align: center;
 }
 .starsphoto {
     background-image: url("../images/main/stars.png");
@@ -35,4 +36,9 @@ p {
     -webkit-text-fill-color: transparent;
     display: table;
     margin: 20px auto;
+}
+p2 {
+    color: white;
+    font-size: 40px !important;
+    text-align: center;
 }
