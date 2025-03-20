@@ -1,0 +1,111 @@
+﻿
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта Луны</title>
+</head>
+<body>
+    <h1>Карта Луны</h1>
+
+    <img id="lunarImage" src="~/images/main/Map.png" alt="Изображение Луны" style="display:none;">
+
+    <canvas id="lunarCanvas" width="800" height="600"></canvas>
+
+    <script>
+        const canvas = document.getElementById('lunarCanvas');
+        const ctx = canvas.getContext('2d');
+        const lunarImage = document.getElementById('lunarImage');
+
+        let drawing = false;
+        let startX, startY;
+        let shapes = []; // Массив для хранения информации о всех нарисованных фигурах
+
+        // Тип фигуры для рисования (прямоугольник, круг, линия и т.д.)
+        let currentShapeType = 'rectangle'; // По умолчанию - прямоугольник
+
+        // Загрузка изображения
+        lunarImage.onload = function() {
+          redrawCanvas(); // Рисуем изображение и все существующие фигуры
+        };
+
+        // Обработчики событий мыши
+        canvas.addEventListener('mousedown', function(e) {
+          drawing = true;
+          startX = e.offsetX;
+          startY = e.offsetY;
+        });
+
+        canvas.addEventListener('mousemove', function(e) {
+          if (!drawing) return;
+          redrawCanvas(); // Перерисовываем canvas (изображение + все предыдущие фигуры)
+
+          let width = e.offsetX - startX;
+          let height = e.offsetY - startY;
+
+          ctx.strokeStyle = 'red';
+          ctx.lineWidth = 2;
+
+          if (currentShapeType === 'rectangle') {
+            ctx.strokeRect(startX, startY, width, height);
+          } else if (currentShapeType === 'circle') {
+            // TODO: Реализовать рисование круга
+          } // Другие типы фигур...
+        });
+
+        canvas.addEventListener('mouseup', function(e) {
+          drawing = false;
+
+          let width = e.offsetX - startX;
+          let height = e.offsetY - startY;
+
+          let newShape = {
+            type: currentShapeType,
+            x: startX,
+            y: startY,
+            width: width,
+            height: height,
+            color: 'red', // Добавим цвет для каждой фигуры
+            lineWidth: 2
+          };
+
+          shapes.push(newShape); // Добавляем новую фигуру в массив
+
+          console.log(shapes); // Выводим все фигуры в консоль
+
+          redrawCanvas(); // Перерисовываем canvas с новой фигурой
+        });
+
+        canvas.addEventListener('mouseleave', function(e) {
+          drawing = false;
+        });
+
+        // Функция для перерисовки canvas (изображения и всех фигур)
+        function redrawCanvas() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем canvas
+          ctx.drawImage(lunarImage, 0, 0, canvas.width, canvas.height); // Рисуем изображение
+
+          // Перебираем все фигуры и рисуем их
+          shapes.forEach(shape => {
+            ctx.strokeStyle = shape.color;
+            ctx.lineWidth = shape.lineWidth;
+
+            if (shape.type === 'rectangle') {
+              ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
+            } else if (shape.type === 'circle') {
+              // TODO:  Реализовать рисование круга
+            } // Другие типы фигур...
+          });
+        }
+
+        // (Дополнительно) Добавьте кнопки для выбора типа фигуры
+        // Пример:
+        // <button onclick="currentShapeType = 'rectangle'">Прямоугольник</button>
+        // <button onclick="currentShapeType = 'circle'">Круг</button>
+
+    </script>
+
+
+</body>
+</html>

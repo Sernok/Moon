@@ -4,23 +4,259 @@
     ViewData["Title"] = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
+    <meta charset="UTF-8">
+    <title>Streaming</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 
-<h3>Development Mode</h3>
-<p>
-    Swapping to the <strong>Development</strong> environment displays detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-    It can result in displaying sensitive information from exceptions to end users.
-    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-    and restarting the app.
-</p>
+</head>
+
+<body>
+
+    <h1></h1>
+
+    <div class="main_cont">
+
+        <img id="lunarImage" src="~/images/main/Map.png" alt="Изображение Луны" style="display:none;">
+
+       
+        <canvas id='canvas' height='500' width='500' style="border:1px solid red;"></canvas>
+
+        <input type="button" id="clear" name="clear" value="Очистить холст" />
+        <button id="clearButton">Очистить input</button>
+        <button id="addButton">Показать координаты</button>
+        <button id="repainButton">Отрисовать сохранившиеся</button>
+        <button id="saveCoord">Сохранить координаты</button>
+
+        <form action="" method="post" target="_blank">
+            <p>
+                <label class="rect_coord" for="coordinates">Coordinates camera</label><br>
+                <input type="text" id="rect_coord" name="coordinates" required><br>
+            </p>
+            <p>
+                <input class="button2" style='margin-top:20px;' type="submit" name="Save">
+            </p>
+
+        </form>
+
+
+    </div>
+    <script type="text/javascript">        
+            //======================================================================================================
+            let can = document.getElementById('canvas');
+            can.width = 500;
+            can.height = 500;
+            let x, y;
+            let ctx = can.getContext('2d'); //Выбрать пространство
+            const lunarImage = document.getElementById('lunarImage');
+            lunarImage.onload = function() {
+                redrawCanvas();
+            }
+            function redrawCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем canvas
+                ctx.drawImage(lunarImage, 0, 0, canvas.width, canvas.height); // Рисуем изображение
+            }
+            let pts = [[]];
+            let coordinats;
+            let new_array = [];
+            let upcomingFigure = [];
+            let data;
+            var clearCoordinat;
+            //======================================================================================================
+            // убирает выделение холста синим цветом при двойном нажатии мыши
+            document.getElementById('canvas');
+            canvas.onselectstart = function () { return false; }
+            //======================================================================================================
+            // отрисовывает сохраненные координаты фигур
+            document.getElementById('repainButton').addEventListener('click', function(event) {
+                // извлекаем данные из localstorege
+                data = JSON.parse(window.localStorage.getItem('storeObj'));
+                // data[data.length-1].pop(); //удалим повторную точку
+                console.info('ЭТО data', data)
+                pts = data // новая коллекция точек /// я изменил одну эту строчку
+                repaintButton(); // вызываев функцию для отрисовки с кнопки
+
+
+                document.getElementById('clear').addEventListener('click', function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                });
+            },false)
+            //======================================================================================================
+            // замыкаение и отрисовка фигуры по двойному клику вызовом func(repaint)
+            $( "#canvas" ).dblclick(function() {
+                pts[pts.length-1].pop(); //удалим повторную точку
+                pts.push([]) // новая коллекция точек
+                repaint();
+                coordinats = pts
+        //======================================================================================================
+                // добавление в input координат в строке JSON
+                remove_empty_str = function(coordinats) {
+                    new_array = [];
+
+                    console.log(new_array)
+                    for (ii = 0, len = coordinats.length; ii < len; ii++) {
+                        item = coordinats[ii];
+                        if (item !== "" || item !== null || item !== 0) {
+                            new_array.push(item);
+                        };
+                        if (new_array.length > 2 || new_array[0].length === 1){
+                            upcomingFigure = new_array.splice(0, 1);
+                            if (upcomingFigure[0].lenght === 1) {
+                                upcomingFigure.splice(0, 1)
+                            };
+
+                        };
+                    }
+                    return new_array;
+                    return upcomingFigure;
+                };
+                newIDs = remove_empty_str(coordinats);
+                clearCoordinat = pts;
+                document.getElementById('saveCoord').onclick = function(event) {
+                    window.localStorage.setItem('storeObj', JSON.stringify(clearCoordinat));
+                }
+
+                let res = Array.from(new Set(new_array.flat()));
+
+                document.getElementById('addButton').onclick = function(event) {
+                    if (res.length !==1 || res[0].length !== 2){
+                        document.getElementById('rect_coord').value = JSON.stringify(res)// поле заполнения координатами
+
+
+                        // JSON.parse(window.localStorage.getItem('storeObj'));
+
+                        return coordinats
+                    };
+                }
+
+
+                // отчистка поля input с кнопки
+                document.getElementById('clearButton').onclick = function(event) {
+                    document.getElementById("rect_coord").value = null;
+                    window.localStorage.removeItem('storeObj');
+                }
+
+            });
+            //=======================================================================================================
+            // события нажатия мыши и добавления координат в массив
+            can.addEventListener('mousedown', function(e){
+                pts[pts.length-1].push([
+                    e.pageX - e.target.offsetLeft,
+                    e.pageY - e.target.offsetTop
+                ]);
+                repaint();
+                [e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop]
+
+            });
+            //=======================================================================================================
+            // перерисовка холста и отрисовка фигуры по точкам из массива
+            function repaint(){
+                if (repaintButton){
+                    ctx.clearRect(0,0,can.width,can.height)
+                }
+                ctx.strokeStyle = 'red';
+                ctx.globalAlpha = 0.5; // прозрачность
+                ctx.fillStyle = 'red' //Цвет
+                ctx.lineWidth = 5;//Толщина линий
+                ctx.lineJoin = "miter"; // закругленность соединений линий
+
+                // рисуем фигуры
+                pts.forEach((shape, j)=> {
+                    ctx.beginPath();
+                    shape.forEach((p, i) => {
+                        ctx[i ? 'lineTo' : 'moveTo'](...p);
+
+                    })
+                    if(j !== pts.length-1){
+                        ctx.fill();
+                        ctx.closePath();
+                    }
+                    ctx.stroke();
+                })
+
+                // рисуем синие точки только для последней фигуры
+                pts[pts.length-1].forEach((p, i) => {
+                    ctx.strokeStyle = 'blue';
+                    ctx.beginPath();
+                    ctx.arc(...p, 10 / 20 ,0, Math.PI * 2);  //Круг
+                    ctx.stroke();
+
+                })
+
+                // кнопка очистки canvas
+                document.getElementById('clear').addEventListener('click', function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    return pts = [[]];// отчищаю массив с точками для отрисовки фигуры
+                }, false)
+            }
+            //======================================================================================================
+            // получаем асинхронный запрос к локальному файлу file.json
+            function readTextFile(path_to_file, callback) {
+                let rawFile = new XMLHttpRequest();
+                rawFile.overrideMimeType("application/json");
+                rawFile.open("GET", path_to_file, true);
+                rawFile.onreadystatechange = function() {
+                    if (rawFile.readyState === 4 && rawFile.status == "200") {
+                        callback(rawFile.responseText);
+                    }
+                }
+                rawFile.send(null);
+            }
+
+            //usage:
+            readTextFile("http://localhost:5000/static/json/coord.json", function(text){
+                var file_data = JSON.parse(text);
+                console.log(file_data);
+            });
+
+            //======================================================================================================
+            // функция для отрисовки из сохраненых координат в фаиле file.json
+            function repaintButton(){
+                // ctx.clearRect(0,0,can.width,can.height);
+
+                ctx.strokeStyle = 'red';
+                ctx.globalAlpha = 0.5; // прозрачность
+                ctx.fillStyle = 'red' //Цвет
+                ctx.lineWidth = 5;//Толщина линий
+                ctx.lineJoin = "miter"; // закругленность соединений линий
+
+                // рисуем фигуры
+                data.forEach((shape, j)=> {
+                    ctx.beginPath();
+                    shape.forEach((p, i) => {
+                        ctx[i ? 'lineTo' : 'moveTo'](...p);
+
+                    })
+                    if(j !== data.length-1){
+                        ctx.fill();
+                        ctx.closePath();
+                    }
+                    ctx.stroke();
+                })
+
+                // рисуем синие точки только для последней фигуры
+                data[data.length-1].forEach((p, i) => {
+                    ctx.strokeStyle = 'blue';
+                    ctx.beginPath();
+                    ctx.arc(...p, 10 / 20 ,0, Math.PI * 2);  //Круг
+                    ctx.stroke();
+
+                })
+            }
+            //=======================================================================================================
+
+
+    </script>
+
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename='json/coord.json') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

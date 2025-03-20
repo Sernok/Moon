@@ -2,3 +2,67 @@
 @model MapModel
 @{
 }
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта Луны</title>
+</head>
+<body>
+    <h1>Карта Луны</h1>
+
+    <img id="lunarImage" src="~/images/main/Map.png" alt="Изображение Луны" style="display:none;">
+
+    <canvas id="lunarCanvas" width="800" height="600"></canvas>
+
+    <script>
+        const canvas = document.getElementById('lunarCanvas');
+        const ctx = canvas.getContext('2d');
+        const lunarImage = document.getElementById('lunarImage');
+        lunarImage.onload = function() {
+        redrawCanvas();
+        }
+                function redrawCanvas() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем canvas
+          ctx.drawImage(lunarImage, 0, 0, canvas.width, canvas.height); // Рисуем изображение
+
+        }
+
+             function drawPoint(context, x, y, label, color, size) {
+            color = white;
+            
+            if (size == null) {
+                size = 5;
+            }
+            var radius = 0.5 * size;
+            // to increase smoothing for numbers with decimal part
+            var pointX = Math.round(x - radius);
+            var pointY = Math.round(y - radius);
+            context.beginPath();
+            context.fillStyle = color;
+            context.fillRect(pointX, pointY, size, size);
+            context.fill();
+            if (label) {
+                var textX = Math.round(x);
+                var textY = Math.round(pointY - 5);
+                context.fillStyle = color;
+                context.textAlign = 'center';
+                context.fillText(label, textX, textY);
+            }
+        }
+
+
+        // Usage example:
+
+
+
+        drawPoint(context, 20, 30, 'A', 'red', 1);
+        drawPoint(context, 50, 120, 'B', 'blue', 2);
+        drawPoint(context, 140, 70, 'C', 'orange', 5);
+
+    </script>
+
+
+</body>
+</html>
