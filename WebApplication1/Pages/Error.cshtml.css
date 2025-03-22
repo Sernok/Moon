@@ -62,13 +62,51 @@ input[type="checkbox"] {
         height: 16px; /* Подберите размер */
         display: inline-block;
         cursor: pointer;
-        /* Контур домика (unchecked) */
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z'/%3E%3C/svg%3E");
         background-size: cover; /* Важно */
     }
+    /* Для первого чекбокса (link1) */
+    input[type="checkbox"][value="link1"] + span {
+        background-image: url("path_to_your_icon_for_link1_unchecked.svg"); /* Иконка для невыбранного состояния */
+    }
 
-    input[type="checkbox"]:checked + span {
+    input[type="checkbox"][value="link1"]:checked + span {
         /* Заполненный домик (checked) */
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5'/%3E%3C/svg%3E");
     }
 
+    
+/* Для второго чекбокса (link2) */
+input[type="checkbox"][value="link2"] + span {
+    background-image: url("path_to_your_icon_for_link2_unchecked.svg");
+}
+
+input[type="checkbox"][value="link2"]:checked + span {
+    background-image: url("path_to_your_icon_for_link2_checked.svg");
+}
+
+/* Для третьего чекбокса (link3) */
+input[type="checkbox"][value="link3"] + span {
+    background-image: url("path_to_your_icon_for_link3_unchecked.svg");
+}
+
+input[type="checkbox"][value="link3"]:checked + span {
+    background-image: url("path_to_your_icon_for_link3_checked.svg");
+}
+
+/* Для четвертого чекбокса (link4) */
+input[type="checkbox"][value="link4"] + span {
+    background-image: url("path_to_your_icon_for_link4_unchecked.svg");
+}
+
+input[type="checkbox"][value="link4"]:checked + span {
+    background-image: url("path_to_your_icon_for_link4_checked.svg");
+}
+
+/* Для пятого чекбокса (link5) */
+input[type="checkbox"][value="link5"] + span {
+    background-image: url("path_to_your_icon_for_link5_unchecked.svg");
+}
+
+input[type="checkbox"][value="link5"]:checked + span {
+    background-image: url("path_to_your_icon_for_link5_checked.svg");
+}
