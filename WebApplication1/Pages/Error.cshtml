@@ -25,21 +25,147 @@
         <img id="lunarImage" src="~/images/main/Map.png" alt="Изображение Луны" style="display:none;">
 
        
-        <canvas id='canvas' height='500' width='500' style="border:1px solid red;"></canvas>
+        <canvas id='canvas' height='500' width='500'></canvas>
 
-        <input type="button" id="clear" name="clear" value="Очистить холст" />
-        <button id="clearButton">Очистить input</button>
-        <button id="addButton">Показать координаты</button>
-        <button id="repainButton">Отрисовать сохранившиеся</button>
-        <button id="saveCoord">Сохранить координаты</button>
+        <input type="button" id="clear" name="clear" value="Очистить холст" class="btn btn-dark" />
+        <button id="clearButton" class="btn btn-dark">Очистить input</button>
+        <button id="addButton" class="btn btn-dark">Показать координаты</button>
+        <button id="repainButton" class="btn btn-dark">Отрисовать сохранившиеся</button>
+        <button id="saveCoord" class="btn btn-dark">Сохранить координаты</button>
+        <button id="addObject" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Добавить объект</button>
+        <!-- Модальное окно -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Выберите тип объекта</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body container" id="modelMap">
+                        <div class="firstlink">
+                            <ul class="list-unstyled">
+                                <p>Обитаемые модули</p>
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="selectedLinks" value="link1">
+                                        <span></span> <!-- Заменяемый элемент -->
+                                        <a class="links link-overlay" href="#!" id="link1">
+                                            Жилые модули
+                                        </a>
+                                    </label>
+                                </li>
+                                <li>
+                                    <a class="links link-overlay" href="#!" id="link2">
+                                        <i class="bi bi-bicycle  pe-1">
+                                        </i>
+                                        Спортивные модули
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="links link-overlay" href="#!" id="link3">
+                                        <i class="bi bi-building pe-1"></i>
+                                        Административные модули</a>
+                                </li>
+                                <li>
+                                    <a class="links link-overlay" href="#!" id="link4">
+                                        <i class="bi bi-heart-pulse-fill  pe-1">
+                                        </i>
+                                        Медицинские модули
+                                        </a>
+                                </li>
+                                <li>
+                                    <a class="links link-overlay " href="#!" id="link5">
+                                        <i class="bi bi-binoculars-fill  pe-1">
+                                        </i>
+                                        Исследовательские модули
+                                        </a>
+                                </li>
+                            </ul>
+                        </div>
 
+                        <div class="secondlink">
+                            <ul class="list-unstyled ">
+                                <p>Технологические объекты</p>
+                                <li>
+                                    <a class="links link-overlay " href="#!" id="link6">
+                                        <i class="fa-solid fa-screwdriver-wrench  pe-1">
+                                        </i>
+                                        Ремонтные модули
+                                        </a>
+                                </li>
+                                <li>
+                                    <a class="links link-overlay " href="#!" id="link7">
+                                        <i class="fa-solid fa-rocket  pe-1">
+                                        </i>
+                                        Космодромы
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="links link-overlay" href="#!" id="link8">
+                                        <i class="fa-solid fa-satellite-dish pe-1">
+                                        </i> 
+                                        Вышки связи
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="links link-overlay" href="#!" id="link9">
+                                        <i class="fa-solid fa-spa pe-1">
+                                        </i>
+                                        Плантации
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="links link-overlay" href="#!" id="link11">
+                                        <i class="fa-solid fa-trash pe-1">
+                                        </i>
+                                        Мусорные полигоны
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="links link-overlay" href="#!" id="link12">
+                                        <i class="fa-solid fa-industry pe-1">
+                                        </i>Производственные предприятия
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="thirdlink">
+                            <ul class="list-unstyled  thirdtext">
+                                <p> </p>
+                                <li>
+                                    <a class="links link-overlay" href="#!" id="link13">
+                                        <i class="fa-solid fa-eye pe-1">
+                                        </i>Астрономические площадки
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="links link-overlay" href="#!" id="link14">
+                                        <i class=" fa-solid fa-solar-panel pe-1">
+                                        </i>Солнечные электростанции
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="links link-overlay" href="#!" id="link15">
+                                        <i class="fa-solid fa-helmet-safety pe-1">
+                                        </i>Добывающие шахты</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ОК</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <form action="" method="post" target="_blank">
             <p>
                 <label class="rect_coord" for="coordinates">Coordinates camera</label><br>
-                <input type="text" id="rect_coord" name="coordinates" required><br>
+                <input type="text" id="rect_coord" name="coordinates" class="form-control" required><br>
             </p>
             <p>
-                <input class="button2" style='margin-top:20px;' type="submit" name="Save">
+                <input class="button2 btn btn-dark" style='margin-top:20px;' type="submit" name="Save">
             </p>
 
         </form>
@@ -49,8 +175,9 @@
     <script type="text/javascript">        
             //======================================================================================================
             let can = document.getElementById('canvas');
-            can.width = 500;
-            can.height = 500;
+            let modcan = can;
+            can.width = 1200;
+            can.height = 600;
             let x, y;
             let ctx = can.getContext('2d'); //Выбрать пространство
             const lunarImage = document.getElementById('lunarImage');
@@ -58,7 +185,7 @@
                 redrawCanvas();
             }
             function redrawCanvas() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем canvas
+                //ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем canvas
                 ctx.drawImage(lunarImage, 0, 0, canvas.width, canvas.height); // Рисуем изображение
             }
             let pts = [[]];
@@ -69,7 +196,7 @@
             var clearCoordinat;
             //======================================================================================================
             // убирает выделение холста синим цветом при двойном нажатии мыши
-            document.getElementById('canvas');
+            //document.getElementById('canvas');
             canvas.onselectstart = function () { return false; }
             //======================================================================================================
             // отрисовывает сохраненные координаты фигур
@@ -84,6 +211,7 @@
 
                 document.getElementById('clear').addEventListener('click', function() {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(lunarImage, 0, 0, canvas.width, canvas.height);
                 });
             },false)
             //======================================================================================================
@@ -142,6 +270,9 @@
                 }
 
             });
+
+
+
             //=======================================================================================================
             // события нажатия мыши и добавления координат в массив
             can.addEventListener('mousedown', function(e){
@@ -157,7 +288,7 @@
             // перерисовка холста и отрисовка фигуры по точкам из массива
             function repaint(){
                 if (repaintButton){
-                    ctx.clearRect(0,0,can.width,can.height)
+                   // ctx.clearRect(0,0,can.width,can.height)
                 }
                 ctx.strokeStyle = 'red';
                 ctx.globalAlpha = 0.5; // прозрачность
@@ -190,8 +321,8 @@
 
                 // кнопка очистки canvas
                 document.getElementById('clear').addEventListener('click', function() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+                    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+                     ctx.drawImage(lunarImage, 0, 0, canvas.width, canvas.height);
                     return pts = [[]];// отчищаю массив с точками для отрисовки фигуры
                 }, false)
             }
@@ -250,6 +381,8 @@
                 })
             }
             //=======================================================================================================
+            
+ 
 
 
     </script>
