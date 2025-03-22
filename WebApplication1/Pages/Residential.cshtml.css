@@ -1,0 +1,72 @@
+﻿body {
+}
+.scheme polygon:hover, #hover {
+    fill: #ff0000; /* Ярко-красный цвет при наведении */
+    cursor: pointer; /* Курсор в виде руки при наведении */
+    transition: fill 0.3s ease; /* Плавный переход для цвета */
+}
+
+.scheme polygon.active {
+    fill: #ff0000 !important; /* Ярко-красный цвет для активного полигона */
+    transition: fill 0.3s ease; /* Плавный переход для цвета */
+}
+
+.scheme-name {
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    line-height: 15px;
+    color: #fff; /* Белый цвет для текста */
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон для контраста */
+    border-radius: 5px; /* Закругленные углы */
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.6); /* Легкая красная тень для выделения */
+}
+
+#canvas-container {
+    position: relative;
+}
+
+.scheme-item {
+    position: absolute;
+    font-size: 12px;
+    color: white;
+    cursor: pointer; /* Курсор в виде руки */
+    transition: transform 0.2s ease; /* Плавное увеличение при наведении */
+}
+
+    .scheme-item:hover {
+        transform: scale(1.1); /* Легкое увеличение при наведении */
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.8); /* Красная тень для выделения */
+    }
+
+.scheme-popup {
+    display: none;
+    border: 1px solid #ff0000; /* Красная рамка для подсказки */
+    padding: 10px;
+    width: 200px;
+    position: absolute;
+    font-size: 12px;
+    line-height: 14px;
+    background: #222; /* Темный фон для подсказки */
+    color: #fff; /* Белый текст в подсказке */
+    z-index: 9999;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3); /* Красная мягкая тень */
+    text-align: left;
+    border-radius: 5px; /* Закругленные углы */
+    opacity: 0;
+    transition: opacity 0.3s ease; /* Плавное появление подсказки */
+}
+
+.scheme-item.active .scheme-popup {
+    display: block;
+    opacity: 1; /* Подсказка появляется */
+}
+
+.scheme-item:hover .scheme-popup {
+    opacity: 1; /* Подсказка появляется при наведении */
+}
+
+#canvas-container .scheme-item .scheme-popup {
+    max-width: 250px; /* Ограничим максимальную ширину подсказки */
+}

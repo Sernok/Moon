@@ -2,3 +2,9 @@
 a{
     color: white;
 }
+
+#map-svg polygon {
+    stroke-width: 5px;
+    stroke: #ff0000;
+    fill: rgba(0,0,255,0.5);
+}

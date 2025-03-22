@@ -1,0 +1,61 @@
+﻿@page "{tagId:guid?}"
+@using WebApplication1.Models
+@model ResidentialModel
+@{
+    ViewData["Title"] = "Карта";
+}
+
+<h1 class="display-4">Карта</h1>
+<hr class="mb-5" />
+
+@if (Model.GeoTags == null || Model.GeoTags.Count == 0) {
+    <div class="alert alert-secondary" role="alert">
+        Тег карты не найден.
+    </div>
+} else {
+    <div class="row g-1">
+        <div class="col-md-6 col-sm-12 px-1">
+            <div class="border border-1 border-secondary rounded">
+                <svg id="map-svg" width="100%" height="auto" viewBox="0 0 1724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                <defs id="defs" />
+                <g id="layer-fon">
+                <image id="fon" x="0" y="0" width="1724" height="1728" xlink:href="/images/main/Map.png" preserveAspectRatio="none" />
+                            </g>
+                <g id="layer-view">
+                <polygon points="@Model.SelectTag!.Path" />
+                            </g>
+                        </svg>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="border border-1 border-secondary rounded p-2">
+                <table class="table">
+                    @foreach (var tag in Model.GeoTags ?? Enumerable.Empty<GeoTag>()) {
+                        <tr>
+                            <td>
+                                @if (tag.Id == Model.SelectTag.Id) {
+                                    <a asp-page="/Residential" asp-route-tagId="@tag.Id" class="nav-link active">@tag.Title</a>
+                                } else {
+                                    <a asp-page="/Residential" asp-route-tagId="@tag.Id" class="nav-link">@tag.Title</a>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <a asp-page="/Maps/UpdateMapTag" asp-route-tagId="@tag.Id" target="_parent">Изменить</a>
+                                <a asp-page="/Maps/DeleteMapTag" asp-route-tagId="@tag.Id" target="_parent">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-primary" asp-page="/Maps/CreateMapTag" target="_parent">Добавить</a>
+                </div>
+                
+            </div>
+            <div class="border border-1 border-secondary rounded p-2 mt-2">
+                <h4>@Model.SelectTag.Title</h4>
+                <p>@Model.SelectTag.Description</p>
+            </div>
+        </div>
+    </div>
+}
