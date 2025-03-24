@@ -35,7 +35,7 @@ namespace WebApplication1.Pages.Maps {
                 }
             }
 
-            return this.RedirectToPage("/Residential");
+            return this.RedirectToPage("/Map");
         }
     }
 }

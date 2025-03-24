@@ -30,7 +30,7 @@ namespace WebApplication1.Pages.Maps {
                 logger.LogError($"Произошла ошибка при удалении тега карты: {exception.Message}.");
             }
 
-            return this.RedirectToPage("/Residential");
+            return this.RedirectToPage("/Map");
         }
     }
 }

@@ -3,3 +3,119 @@
 @{
     ViewData["Title"] = "Error";
 }
+<body>
+<div class="scheme">
+	<img src="~/images/main/Suit.png" alt="">
+	<svg>
+		<circle data-id="1" cx="430" cy="200" r="20" fill="#FFDBA4" stroke="black" stroke-width="1" />
+
+	</svg>
+		<div class="scheme-item" data-id="1" style="top: 180px; left: 600px;">
+			<div class="scheme-name">Детский Мир</div>
+			<div class="scheme-popup">
+				Шлем
+			</div>
+		</div>
+
+</div>
+</body>
+<style type="text/css">
+	/* Полигоны магазинов */
+	.scheme {
+		height: 393px;
+		width: 738px;
+		margin: 0 auto;
+		position: relative;
+	}
+
+		.scheme svg {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			height: 393px;
+			width: 738px;
+		}
+
+
+
+			/*--------------круг*/
+		/* Круги магазинов */
+		.scheme circle {
+			cursor: pointer;
+		}
+
+			/* Цвета магазинов - при наведении мышкой и активный */
+			.scheme circle:hover, #hover {
+				fill: #ffc70b;
+			}
+
+			.scheme circle.active {
+				fill: #FF8C0B !important;
+			}
+			
+			/* Названия и подсказки магазинов */
+	.scheme-item {
+		position: absolute;
+		cursor: pointer;
+	}
+
+	.scheme-name {
+		font-weight: bold;
+		font-size: 10px;
+		text-align: center;
+		line-height: 13px;
+	}
+
+	.scheme-popup {
+		display: none;
+		border: 1px solid #777;
+		padding: 10px;
+		width: 200px;
+		position: absolute;
+		font-size: 12px;
+		line-height: 14px;
+		background: #fff;
+		z-index: 9999;
+		box-shadow: 0 0 10px rgba(0,0,0,0.5);
+		text-align: left;
+	}
+</style>
+
+<script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+<script>
+	// Изменение цвета circle когда мышка над названием магазина.
+	$('.scheme-item').hover(
+		function(){
+			$('.scheme circle[data-id=' + $(this).data('id') + ']').attr('id', 'hover');
+		},
+		function(){
+			$('.scheme circle[data-id=' + $(this).data('id') + ']').attr('id', '');
+		}
+	);
+
+	// Клик по названию магазина - открывается подсказка.
+	$('.scheme-item').on('click', function(){
+		$('.scheme-popup').hide();
+		$('.scheme circle').attr('class', '');
+
+		var popup = $(this).find('.scheme-popup');
+		$(popup).css('top', '-' + ($(popup).outerHeight(true) + 15) + 'px');
+		$(popup).css('left', '-' + (($(popup).outerWidth(true) / 2) - ($(this).outerWidth(true) / 2)) + 'px');
+		$('.scheme circle[data-id=' + $(this).data('id') + ']').attr('class', 'active');
+		$(popup).show();
+	});
+
+	// Клик по circle магазина - также открывается подсказка.
+	$('.scheme circle').click(function(){
+		$('.scheme-popup').hide();
+		$('.scheme-item[data-id=' + $(this).data('id') + ']').trigger('click');
+	});
+
+	// Клик вне магазинов все закрывает.
+	$("body").click(function(e) {
+		if ($(e.target).closest(".scheme circle, .scheme-item").length == 0) {
+			$(".scheme-popup").hide();
+			$('.scheme circle').attr('class', '');
+		}
+	});
+</script>
