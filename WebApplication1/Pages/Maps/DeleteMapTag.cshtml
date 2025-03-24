@@ -33,6 +33,8 @@
                 <div class="col-12 mb-2">
                     <h4>@Model.GeoTag.Title</h4>
                     <p>@Model.GeoTag.Description</p>
+                    <p>@Model.GeoTag.Construction</p>
+
                 </div>
                 <div class="col-12">
                     <form asp-page="/Maps/DeleteMapTag">
@@ -40,7 +42,7 @@
 
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary me-1">Удалить</button>
-                            <a asp-page="/Residential" class="btn btn-primary me-1">Отменить</a>
+                            <a asp-page="/Map" class="btn btn-primary me-1">Отменить</a>
                         </div>
                     </form>
                 </div>

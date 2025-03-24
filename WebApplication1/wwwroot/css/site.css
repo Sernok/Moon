@@ -1,10 +1,10 @@
 
 a{
-    color: white;
+    color: #ffffff !important;
 }
-
+ 
 #map-svg polygon {
     stroke-width: 5px;
-    stroke: #ff0000;
-    fill: rgba(0,0,255,0.5);
+    stroke: #7CFC00;
+    fill: rgba(0,255,0,0.5);
 }

@@ -38,12 +38,16 @@
                     <label for="description" class="form-label">Описание</label>
                     <textarea id="description" name="description" class="form-control" rows="3"></textarea>
                 </div>
-
+                <div class="col-12">
+                    <label for="construction" class="form-label">Тип объекта</label>
+                    <button id="modalbutton">выберите тип объекта</button>
+                    <textarea id="construction" name="construction" class="form-control" rows="3"></textarea>
+                </div>
                 <input id="form-path" name="path" type="hidden" />
 
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary me-1">Сохранить</button>
-                    <a asp-page="/Residential" class="btn btn-primary me-1">Отменить</a>
+                    <a asp-page="/Map" class="btn btn-primary me-1">Отменить</a>
                 </div>
             </form>
         </div>

@@ -12,7 +12,10 @@ namespace WebApplication1.Models {
         [Required(ErrorMessage = "Введите описание.")]
         [StringLength(20, MinimumLength = 5, ErrorMessage = "Длинна описания от 5 до 200 символов.")]
         public string Description { get; set; } = string.Empty;
+        public string Construction { get; set; } = string.Empty;
 
         public string Path { get; set; } = string.Empty;
+
+
     }
 }

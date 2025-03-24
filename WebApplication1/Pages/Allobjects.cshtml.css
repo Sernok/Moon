@@ -1,0 +1,100 @@
+﻿.links {
+    color: white;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+.re{
+    color: white;
+}
+.container {
+    display: grid;
+    grid-template-columns: 2fr 2fr auto;
+}
+
+.firstlink {
+    left: 50px;
+    color: white;
+    text-decoration: none;
+}
+
+.secondlink {
+    left: 200px;
+    color: white;
+    text-decoration: none;
+}
+
+.thirdlink {
+    left: 250px;
+    color: white;
+    text-decoration: none;
+}
+
+.modal-content {
+    background-color: #2A2A2A !important;
+    width: 800px;
+    transform: translateX(-125px);
+    /* Добавляем скругление углов */
+    border-radius: 10px; /*  Настройте значение по своему вкусу */
+    /* Добавляем белую границу */
+    border: 2px solid white; /*  Настройте толщину границы по своему вкусу */
+}
+
+.fade {
+    justify-content: center !important;
+}
+
+.modal-title {
+    color: white;
+}
+
+.thirdtext {
+    padding-top: 25px !important;
+}
+
+.modal-header {
+    border: 0 !important;
+}
+
+.modal-footer {
+    border: 0 !important;
+}
+
+.btn-close {
+    background-color: #494949;
+    filter: invert(1);
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    /* Скрываем checkbox */
+}
+
+    input[type="checkbox"] + span { /* стилизация заменяемого элемента */
+        position: relative;
+        width: 16px; /* Подберите размер */
+        height: 16px; /* Подберите размер */
+        display: inline-block;
+        cursor: pointer;
+        background-size: cover; /* Важно */
+    }
+    /* Для первого чекбокса (link1) */
+    input[type="checkbox"][value="link1"] + span {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z'/%3E%3C/svg%3E");
+    }
+
+    input[type="checkbox"][value="link1"]:checked + span {
+        /* Заполненный домик (checked) */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5'/%3E%3C/svg%3E");
+    }
+
+    /* Для второго чекбокса (link2) */
+    input[type="checkbox"][value="link2"] + span {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23999999' d= 'M4 4.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1v.5h4.14l.386-1.158A.5.5 0 0 1 11 4h1a.5.5 0 0 1 0 1h-.64l-.311.935.807 1.29a3 3 0 1 1-.848.53l-.508-.812-2.076 3.322A.5.5 0 0 1 8 10.5H5.959a3 3 0 1 1-1.815-3.274L5 5.856V5h-.5a.5.5 0 0 1-.5-.5m1.5 2.443-.508.814c.5.444.85 1.054.967 1.743h1.139zM8 9.057 9.598 6.5H6.402zM4.937 9.5a2 2 0 0 0-.487-.877l-.548.877zM3.603 8.092A2 2 0 1 0 4.937 10.5H3a.5.5 0 0 1-.424-.765zm7.947.53a2 2 0 1 0 .848-.53l1.026 1.643a.5.5 0 1 1-.848.53z '/%3E%3C/svg%3E");
+    }
+
+    input[type="checkbox"][value="link2"]:checked + span {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath  fill='%23fff'  d= 'M4 4.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1v.5h4.14l.386-1.158A.5.5 0 0 1 11 4h1a.5.5 0 0 1 0 1h-.64l-.311.935.807 1.29a3 3 0 1 1-.848.53l-.508-.812-2.076 3.322A.5.5 0 0 1 8 10.5H5.959a3 3 0 1 1-1.815-3.274L5 5.856V5h-.5a.5.5 0 0 1-.5-.5m1.5 2.443-.508.814c.5.444.85 1.054.967 1.743h1.139zM8 9.057 9.598 6.5H6.402zM4.937 9.5a2 2 0 0 0-.487-.877l-.548.877zM3.603 8.092A2 2 0 1 0 4.937 10.5H3a.5.5 0 0 1-.424-.765zm7.947.53a2 2 0 1 0 .848-.53l1.026 1.643a.5.5 0 1 1-.848.53z '/%3E%3C/svg%3E");
+        color: gold !important;
+    }
+ 
+ 

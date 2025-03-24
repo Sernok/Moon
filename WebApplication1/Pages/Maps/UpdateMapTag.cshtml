@@ -44,12 +44,17 @@
                         <textarea id="description" name="description" class="form-control" rows="3">@Model.GeoTag.Description</textarea>
                     </div>
 
+                    <div class="col-12">
+                        <label for="construction" class="form-label">Тип объекта</label>
+                        <textarea id="construction" name="construction" class="form-control" rows="3">@Model.GeoTag.Construction</textarea>
+                    </div>
+
                     <input id="id" name="id" type="hidden" value="@Model.GeoTag.Id" />
                     <input id="form-path" name="path" type="hidden" value="@Model.GeoTag.Path" />
 
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary me-1">Сохранить</button>
-                        <a asp-page="/Residential" class="btn btn-primary me-1">Отменить</a>
+                        <a asp-page="/Map" class="btn btn-primary me-1">Отменить</a>
                     </div>
                 </form>
             </div>
