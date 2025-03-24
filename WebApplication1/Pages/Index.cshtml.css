@@ -42,3 +42,18 @@ p2 {
     font-size: 40px !important;
     text-align: center;
 }
+
+.project {
+    background-color: hsla(0, 0%, 0%, 0.5);
+    border: 2px solid #ccc; /* Опционально: чтобы контур был виден */
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    border-radius: 10px; /* Скругление углов (по желанию) */
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 10); /* Внутренняя тень */
+    transition: all 0.2s ease-in-out; /* Для плавности при наведении */
+    width: 240px;
+    text-decoration: none;
+    font-family: "Alumni" !important;
+
+}

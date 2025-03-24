@@ -1,3 +1,8 @@
+using WebApplication1.Models;
+using WebApplication1.Data;
+using Serilog;
+using Serilog.Events;
+
 namespace WebApplication1
 {
     public class Program
@@ -8,6 +13,18 @@ namespace WebApplication1
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            builder.Services.AddScoped<IMapRepository, JsonMapRepository>();
+
+            //Add support to logging with SERILOG
+            builder.Host.UseSerilog((context, configuration) => {
+                configuration.MinimumLevel.Warning()
+                .WriteTo.File(
+                    "Logs/log-.txt",
+                    restrictedToMinimumLevel: LogEventLevel.Warning,
+                    rollingInterval: RollingInterval.Day
+                 );
+            });
 
             var app = builder.Build();
 

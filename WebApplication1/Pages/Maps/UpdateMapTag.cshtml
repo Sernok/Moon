@@ -1,0 +1,58 @@
+﻿@page "{tagId:guid}"
+@using WebApplication1.Models
+@model UpdateMapTagModel
+@{
+    ViewData["Title"] = "Изменение тега карты";
+}
+
+
+<h1 class="display-4">Изменение тега карты</h1>
+<hr class="mb-5" />
+
+@if (Model.GeoTag == null) {
+    <div class="alert alert-secondary" role="alert">
+        Тег карты не найден.
+    </div>
+} else {
+    <div class="row g-1">
+        <div class="col-md-6 col-sm-12">
+            <div class="border border-1 border-secondary rounded">
+                <svg id="map-svg" width="100%" height="auto" viewBox="0 0 1724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                <defs id="defs" />
+                <g id="layer-fon">
+                <image id="fon" x="0" y="0" width="1724" height="1728" xlink:href="/images/main/Map.png" preserveAspectRatio="none" />
+                    </g>
+                <g id="layer-view">
+                <polygon id="view-polygon" points="@Model.GeoTag.Path" />
+                    </g>
+                </svg>
+                <div class="d-flex justify-content-center m-1">
+                    <button id="clear-path" class="btn btn-info">Очистить регион</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="border border-1 border-secondary rounded p-2">
+                <form id="edit-form" asp-page="/Maps/UpdateMapTag" method="post" enctype="application/x-www-form-urlencoded" class="row g-3">
+                    <div class="col-12">
+                        <label for="title" class="form-label">Заголовок</label>
+                        <input id="title" name="title" type="text" class="form-control" value="@Model.GeoTag.Title">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="description" class="form-label">Описание</label>
+                        <textarea id="description" name="description" class="form-control" rows="3">@Model.GeoTag.Description</textarea>
+                    </div>
+
+                    <input id="id" name="id" type="hidden" value="@Model.GeoTag.Id" />
+                    <input id="form-path" name="path" type="hidden" value="@Model.GeoTag.Path" />
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary me-1">Сохранить</button>
+                        <a asp-page="/Map" class="btn btn-primary me-1">Отменить</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}

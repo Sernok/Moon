@@ -1,0 +1,50 @@
+﻿@page "{tagId:guid}"
+@using WebApplication1.Models
+@model DeleteMapTagModel
+@{
+    ViewData["Title"] = "Удаление тега карты";
+}
+
+
+<h1 class="display-4">Удаление тега карты</h1>
+<hr class="mb-5" />
+
+@if (Model.GeoTag == null) {
+    <div class="alert alert-secondary" role="alert">
+        Тег карты не найден.
+    </div>
+} else {
+    <div class="row g-1">
+        <div class="col-md-6 col-sm-12">
+            <div class="border border-1 border-secondary rounded">
+                <svg id="map-svg" width="100%" height="auto" viewBox="0 0 1724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                <defs id="defs" />
+                <g id="layer-fon">
+                <image id="fon" x="0" y="0" width="1724" height="1728" xlink:href="/images/main/Map.png" preserveAspectRatio="none" />
+                                    </g>
+                <g id="layer-view">
+                <polygon id="view-polygon" points="@Model.GeoTag.Path" />
+                                    </g>
+                                    </svg>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="border border-1 border-secondary rounded p-2">
+                <div class="col-12 mb-2">
+                    <h4>@Model.GeoTag.Title</h4>
+                    <p>@Model.GeoTag.Description</p>
+                </div>
+                <div class="col-12">
+                    <form asp-page="/Maps/DeleteMapTag">
+                        <input name="tagId" type="hidden" value="@Model.GeoTag.Id" />
+
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary me-1">Удалить</button>
+                            <a asp-page="/Map" class="btn btn-primary me-1">Отменить</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}

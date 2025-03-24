@@ -1,68 +1,84 @@
-﻿@page
+﻿@page "{tagId:guid?}"
+@using WebApplication1.Models
 @model MapModel
 @{
+    ViewData["Title"] = "Карта";
 }
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карта Луны</title>
-</head>
-<body>
-    <h1>Карта Луны</h1>
 
-    <img id="lunarImage" src="~/images/main/Map.png" alt="Изображение Луны" style="display:none;">
-
-    <canvas id="lunarCanvas" width="800" height="600"></canvas>
-
-    <script>
-        const canvas = document.getElementById('lunarCanvas');
-        const ctx = canvas.getContext('2d');
-        const lunarImage = document.getElementById('lunarImage');
-        lunarImage.onload = function() {
-        redrawCanvas();
-        }
-                function redrawCanvas() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем canvas
-          ctx.drawImage(lunarImage, 0, 0, canvas.width, canvas.height); // Рисуем изображение
-
-        }
-
-             function drawPoint(context, x, y, label, color, size) {
-            color = white;
-            
-            if (size == null) {
-                size = 5;
-            }
-            var radius = 0.5 * size;
-            // to increase smoothing for numbers with decimal part
-            var pointX = Math.round(x - radius);
-            var pointY = Math.round(y - radius);
-            context.beginPath();
-            context.fillStyle = color;
-            context.fillRect(pointX, pointY, size, size);
-            context.fill();
-            if (label) {
-                var textX = Math.round(x);
-                var textY = Math.round(pointY - 5);
-                context.fillStyle = color;
-                context.textAlign = 'center';
-                context.fillText(label, textX, textY);
-            }
-        }
-
-
-        // Usage example:
+<div class="mt-1 mb-4">
+    <hr class="mb-2" />
+    <h1>Создание элементов карты</h1>
 
 
 
-        drawPoint(context, 20, 30, 'A', 'red', 1);
-        drawPoint(context, 50, 120, 'B', 'blue', 2);
-        drawPoint(context, 140, 70, 'C', 'orange', 5);
+    @if (Model.GeoTags == null || Model.GeoTags.Count == 0)
+    {
+        <div class="alert alert-secondary" role="alert">
+            Тег карты не найден.
+        </div>
+    }
+    else
+    {
+        <div class="row g-1">
+            <div class="col-md-7 col-sm-12 px-1">
+                <div class="border border-1 border-secondary rounded">
+                    <svg id="map-svg" width="100%" height="auto" viewBox="0 0 2724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                    <defs id="defs" />
+                    <g id="layer-fon">
+                    <image id="fon" x="0" y="0" width="2724" height="1728" xlink:href="/images/main/Map.png" preserveAspectRatio="none" />
+                                </g>
+                    <g id="layer-view">
+                    <polygon points="@Model.SelectTag!.Path" />
+                                </g>
+                            </svg>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <div class="border border-1 border-secondary rounded p-2">
+                    <table class="table">
+                        @foreach (var tag in Model.GeoTags ?? Enumerable.Empty<GeoTag>())
+                        {
+                            <tr>
+                                <td>
+                                    @if (tag.Id == Model.SelectTag.Id)
+                                    {
+                                        <a asp-page="/Map" asp-route-tagId="@tag.Id" class="btn btn-dark nav-link active">@tag.Title</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-page="/Map" asp-route-tagId="@tag.Id" class="re nav-link">@tag.Title</a>
+                                    }
+                                </td>
+                                <td class="text-end">
+                                    <a asp-page="/Maps/UpdateMapTag" asp-route-tagId="@tag.Id" target="_parent" class="btn btn-dark mb-1">
+                                        <i class="bi bi-pencil-fill"></i>
+                                        Изменить
+                                    </a>
+                                    <a asp-page="/Maps/DeleteMapTag" asp-route-tagId="@tag.Id" target="_parent" class="btn btn-dark">
+                                        <i class="bi bi-trash-fill"></i>
+                                        Удалить
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
 
-    </script>
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-success" asp-page="/Maps/CreateMapTag" target="_parent">Добавить</a>
+                    </div>
+
+                </div>
+                <div class="border border-1 border-secondary rounded p-2 mt-2">
+                    <h4>@Model.SelectTag.Title</h4>
+                    <p>@Model.SelectTag.Description</p>
+                </div>
+            </div>
+        </div>
+    }
+    <a class="btn btn-success mt-3" href="/Allobjects">Показать общий вид</a>
+
+</div>
 
 
-</body>
-</html>
+
+
