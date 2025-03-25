@@ -7,8 +7,6 @@
 
 <h1 class="display-4">Добавление тега карты</h1>
 <hr class="mb-5" />
-
-
 <div class="row g-1">
     <div class="col-md-6 col-sm-12">
         <div class="border border-1 border-secondary rounded">
@@ -40,7 +38,36 @@
                 </div>
                 <div class="col-12">
                     <label for="construction" class="form-label">Тип объекта</label>
-                    <button id="modalbutton">выберите тип объекта</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Action
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#!" id="1">Жилые модули</a></li>
+                            <li><a class="dropdown-item" href="#!" id="2">Спортивные модули</a></li>
+                            <li><a class="dropdown-item" href="#!" id="3">Административные модули</a></li>
+                            <li><a class="dropdown-item" href="#!" id="4">Медицинские модули</a></li>
+                            <li><a class="dropdown-item" href="#!" id="5">Исследовательские модули</a></li>
+                            <li><a class="dropdown-item" href="#!" id="6">Ремонтные модули</a></li>
+                            <li><a class="dropdown-item" href="#!" id="7">Космодромы</a></li>
+                            <li><a class="dropdown-item" href="#!" id="8">Вышки связи</a></li>
+                            <li><a class="dropdown-item" href="#!" id="9">Плантации</a></li>
+                            <li><a class="dropdown-item" href="#!" id="10">Мусорные полигоны</a></li>
+                            <li><a class="dropdown-item" href="#!" id="11">Производственные предприятия</a></li>
+                            <li><a class="dropdown-item" href="#!" id="12">Астрономические площадки</a></li>
+                            <li><a class="dropdown-item" href="#!" id="13">Солнечные электростанции</a></li>
+                            <li><a class="dropdown-item" href="#!" id="14">Добывающие шахты</a></li>
+                            <li>
+                                <label>
+                                    <input type="radio" name="selectedLinks" value="Добывающие шахты" id="14">
+                                    <span></span> <!-- Заменяемый элемент -->
+                                    <a class="links link-overlay" href="#!">
+                                        Добывающие шахты
+                                    </a>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
                     <textarea id="construction" name="construction" class="form-control" rows="3"></textarea>
                 </div>
                 <input id="form-path" name="path" type="hidden" />
@@ -52,5 +79,4 @@
             </form>
         </div>
     </div>
-</div>
 </div>

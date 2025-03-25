@@ -17,4 +17,8 @@
     <Folder Include="Logs\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\js\AddObjectButton.js" />
+  </ItemGroup>
+
 </Project>
