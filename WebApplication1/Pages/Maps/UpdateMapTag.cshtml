@@ -46,7 +46,16 @@
 
                     <div class="col-12">
                         <label for="construction" class="form-label">Тип объекта</label>
-                        <textarea id="construction" name="construction" class="form-control" rows="3">@Model.GeoTag.Construction</textarea>
+                        <div class="col-12">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="ListButton">
+                                    @Model.GeoTag.Construction
+                                </button>
+                                @await Html.PartialAsync("List")
+                            </div>
+                            <input type="hidden" id="Construction" name="Construction">
+                        </div>
+                        <input id="form-path" name="path" type="hidden" />
                     </div>
 
                     <input id="id" name="id" type="hidden" value="@Model.GeoTag.Id" />
