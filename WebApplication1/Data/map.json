@@ -26,5 +26,19 @@
     "Description": "45T45TRGDFG",
     "Construction": "TRTETETETRE",
     "Path": "1131,197 1366,178 1302,355 1297,489 1315,529"
+  },
+  {
+    "Id": "9efc7200-9310-45bd-8c3d-ec6333c87756",
+    "Title": "454554",
+    "Description": "45454",
+    "Construction": "Спортивные модули",
+    "Path": "1010,218 1350,604 681,863"
+  },
+  {
+    "Id": "c144b231-02a9-4f36-a986-1cee4509ff02",
+    "Title": "54545",
+    "Description": "545454",
+    "Construction": "Спортивные модули",
+    "Path": "1227,432 1438,794 975,994"
   }
 ]

@@ -42,34 +42,98 @@
                         <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             Action
                         </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#!" id="1">Жилые модули</a></li>
-                            <li><a class="dropdown-item" href="#!" id="2">Спортивные модули</a></li>
-                            <li><a class="dropdown-item" href="#!" id="3">Административные модули</a></li>
-                            <li><a class="dropdown-item" href="#!" id="4">Медицинские модули</a></li>
-                            <li><a class="dropdown-item" href="#!" id="5">Исследовательские модули</a></li>
-                            <li><a class="dropdown-item" href="#!" id="6">Ремонтные модули</a></li>
-                            <li><a class="dropdown-item" href="#!" id="7">Космодромы</a></li>
-                            <li><a class="dropdown-item" href="#!" id="8">Вышки связи</a></li>
-                            <li><a class="dropdown-item" href="#!" id="9">Плантации</a></li>
-                            <li><a class="dropdown-item" href="#!" id="10">Мусорные полигоны</a></li>
-                            <li><a class="dropdown-item" href="#!" id="11">Производственные предприятия</a></li>
-                            <li><a class="dropdown-item" href="#!" id="12">Астрономические площадки</a></li>
-                            <li><a class="dropdown-item" href="#!" id="13">Солнечные электростанции</a></li>
-                            <li><a class="dropdown-item" href="#!" id="14">Добывающие шахты</a></li>
+                        <ul id="construction" class="dropdown-menu">
+                            <li><a class="dropdown-item"    value="Жилые модули">Жилые модули</a></li>
                             <li>
-                                <label>
-                                    <input type="radio" name="selectedLinks" value="Добывающие шахты" id="14">
-                                    <span></span> <!-- Заменяемый элемент -->
-                                    <a class="links link-overlay" href="#!">
-                                        Добывающие шахты
-                                    </a>
-                                </label>
+                                <a class="dropdown-item"   value="Спортивные модули">
+                                    <i class="bi bi-bicycle  pe-1">
+                                    </i>
+                                    Спортивные модули
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"   value="Административные модули">
+                                    <i class="bi bi-building pe-1"></i>
+                                    Административные модули
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"   value="Медицинские модули">
+                                    <i class="bi bi-heart-pulse-fill  pe-1">
+                                    </i>
+                                    Медицинские модули
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"   value="Исследовательские модули">
+                                    <i class="bi bi-binoculars-fill  pe-1">
+                                    </i>
+                                    Исследовательские модули
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"   value="Ремонтные модули">
+                                    <i class="fa-solid fa-screwdriver-wrench  pe-1">
+                                    </i>
+                                    Ремонтные модули
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"   value="Космодромы">
+                                    <i class="fa-solid fa-rocket  pe-1">
+                                    </i>
+                                    Космодромы
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"   value="Вышки связи">
+                                    <i class="fa-solid fa-satellite-dish pe-1">
+                                    </i>
+                                    Вышки связи
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"  value="Плантации">
+                                    <i class="fa-solid fa-spa pe-1">
+                                    </i>
+                                    Плантации
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"  value="Мусорные полигоны">
+                                    <i class="fa-solid fa-trash pe-1">
+                                    </i>
+                                    Мусорные полигоны
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"   value="Производственные предприятия">
+                                    <i class="fa-solid fa-industry pe-1">
+                                    </i>Производственные предприятия
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"   value="Астрономические площадки">
+                                    <i class="fa-solid fa-eye pe-1">
+                                    </i>Астрономические площадки
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"  value="Солнечные электростанции">
+                                    <i class=" fa-solid fa-solar-panel pe-1">
+                                    </i>Солнечные электростанции
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"   value="Добывающие шахты">
+                                    <i class="fa-solid fa-helmet-safety pe-1">
+                                    </i>Добывающие шахты
+                                </a></a>
                             </li>
                         </ul>
                     </div>
-                    <textarea id="construction" name="construction" class="form-control" rows="3"></textarea>
-                </div>
+                    <input type="hidden" id="Construction" name="Construction">
+                 </div>
                 <input id="form-path" name="path" type="hidden" />
 
                 <div class="d-flex justify-content-end">
@@ -80,3 +144,11 @@
         </div>
     </div>
 </div>
+<script>
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', function () {
+            let selectedValue = this.getAttribute('value'); // Получаем значение
+            document.getElementById('Construction').value = selectedValue; // Записываем в скрытое поле
+        });
+    });
+    // Получаем значение document.getElementById('selectedConstruction').value = selectedValue; // Записываем в скрытое поле или переменную }); }); </script>
