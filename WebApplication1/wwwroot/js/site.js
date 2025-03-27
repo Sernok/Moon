@@ -38,6 +38,7 @@ function selectGeotag(event, polygonId, path) {
                 var position = point.matrixTransform(svg.getScreenCTM().inverse());
                 points.push(new DOMPoint(Math.floor(position.x), Math.floor(position.y)));
                 editRender();
+
             });
         }
         var buttonClear = document.getElementById("clear-path");

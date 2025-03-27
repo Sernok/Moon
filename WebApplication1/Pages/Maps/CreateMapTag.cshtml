@@ -42,17 +42,202 @@
                         <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="ListButton">
                             Выберите значение
                         </button>
-                @await Html.PartialAsync("List")
+
+                        <ul id="construction" class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" value="Жилые модули">
+                                    <i class="bi bi-house-door-fill pe-1"></i>
+                                    Жилые модули
+                                </a>
+                           </li>
+                            <li>
+                                <a class="dropdown-item" value="Спортивные модули">
+                                    <i class="bi bi-bicycle  pe-1">
+                                    </i>
+                                    Спортивные модули
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Административные модули">
+                                    <i class="bi bi-building pe-1"></i>
+                                    Административные модули
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Медицинские модули">
+                                    <i class="bi bi-heart-pulse-fill  pe-1">
+                                    </i>
+                                    Медицинские модули
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Исследовательские модули">
+                                    <i class="bi bi-binoculars-fill  pe-1">
+                                    </i>
+                                    Исследовательские модули
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Ремонтные модули">
+                                    <i class="fa-solid fa-screwdriver-wrench  pe-1">
+                                    </i>
+                                    Ремонтные модули
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Космодромы">
+                                    <i class="fa-solid fa-rocket  pe-1">
+                                    </i>
+                                    Космодромы
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Вышки связи">
+                                    <i class="fa-solid fa-satellite-dish pe-1">
+                                    </i>
+                                    Вышки связи
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Плантации">
+                                    <i class="fa-solid fa-spa pe-1">
+                                    </i>
+                                    Плантации
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Мусорные полигоны">
+                                    <i class="fa-solid fa-trash pe-1">
+                                    </i>
+                                    Мусорные полигоны
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Производственные предприятия">
+                                    <i class="fa-solid fa-industry pe-1">
+                                    </i>Производственные предприятия
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Астрономические площадки">
+                                    <i class="fa-solid fa-eye pe-1">
+                                    </i>Астрономические площадки
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Солнечные электростанции">
+                                    <i class=" fa-solid fa-solar-panel pe-1">
+                                    </i>Солнечные электростанции
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" value="Добывающие шахты">
+                                    <i class="fa-solid fa-helmet-safety pe-1">
+                                    </i>Добывающие шахты
+                                </a></a>
+                            </li>
+                        </ul>
+                        <input type="hidden" id="Construction" name="Construction">
                     </div>
-                    <input type="hidden" id="Construction" name="Construction">
+                    <input id="form-path" name="path" type="hidden" />
                 </div>
-                <input id="form-path" name="path" type="hidden" />
 
                  <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary me-1">Сохранить</button>
+                    <button type="submit" class="btn btn-primary me-1" >Сохранить</button>
                     <a asp-page="/Map" class="btn btn-primary me-1">Отменить</a>
                 </div>
+                <input type="hidden" id="Icon" name="Icon">
+
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', function () {
+            let selectedValue = this.getAttribute('value'); // Получаем значение
+            document.getElementById('Construction').value = selectedValue; // Записываем в скрытое поле
+            const button = document.getElementById("ListButton");
+            button.textContent = selectedValue;
+
+            let  idValue; // Переменная для хранения значения ID
+            
+            switch (selectedValue) {
+                case "Жилые модули":
+                  idValue = 1;
+                  break;
+
+                case "Спортивные модули":
+                  idValue = 2;
+                  break;
+
+                case "Административные модули":
+                  idValue = 3;
+                  break;
+
+                case "Медицинские модули":
+                  idValue = 4;
+                  break;
+
+                case "Исследовательские модули":
+                  idValue = 5;
+                  break;
+
+                case "Ремонтные модули":
+                  idValue = 6;
+                  break;
+
+                case "Космодромы":
+                  idValue = 7;
+                  break;
+
+                case "Вышки связи":
+                  idValue = 8;
+                  break;
+
+                case "Плантации":
+                  idValue = 9;
+                  break;
+
+                case "Мусорные полигоны":
+                  idValue = 10;
+                  break;
+
+                case "Производственные предприятия":
+                  idValue = 11;
+                  break;
+
+                case "Астрономические площадки":
+                  idValue = 12;
+                  break;
+
+                case "Солнечные электростанции":
+                  idValue = 13;
+                  break;
+
+                case "Добывающие шахты":
+                  idValue = 14;
+                  break;
+                default:
+                  idValue = 0; // Или какое-то значение по умолчанию, если ничего не выбрано или выбрано что-то другое
+                  console.warn("Неизвестное значение selectedValue:", selectedValue); // Выводим предупреждение в консоль
+                  break;
+              }
+              alert(idValue);
+
+            document.getElementById('Icon').value = idValue;
+
+   
+
+              
+            
+            });
+    });
+
+            //document.getElementById('savebutton').addEventListener("click", function() {
+           // document.getElementById('ID').value = idcounter;
+           // idcounter++;
+           // });
+        
+</script>

@@ -37,6 +37,9 @@ namespace WebApplication1.Data {
                     tag.Description = geoTag.Description;
                     tag.Path = geoTag.Path;
                     tag.Construction = geoTag.Construction;
+                    tag.ID = geoTag.ID;
+                    tag.Icon = geoTag.Icon;
+
                     await SaveFile(geoTags);
                 }
             }

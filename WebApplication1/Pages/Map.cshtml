@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Карта";
 }
+<meta charset="utf-8" />
 
 <div class="mt-1 mb-4">
     <hr class="mb-2" />
@@ -23,14 +24,14 @@
             <div class="col-md-7 col-sm-12 px-1">
                 <div class="border border-1 border-secondary rounded">
                     <svg id="map-svg" width="100%" height="auto" viewBox="0 0 2724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-                    <defs id="defs" />
-                    <g id="layer-fon">
-                    <image id="fon" x="0" y="0" width="2724" height="1728" xlink:href="/images/main/Map.png" preserveAspectRatio="none" />
-                                </g>
-                    <g id="layer-view">
-                    <polygon points="@Model.SelectTag!.Path" />
-                                </g>
-                            </svg>
+                        <defs id="defs" />
+                        <g id="layer-fon">
+                            <image id="fon" x="0" y="0" width="2724" height="1728" xlink:href="/images/main/Map.png" preserveAspectRatio="none" />
+                        </g>
+                        <g id="layer-view">
+                            <polygon points="@Model.SelectTag!.Path" />
+                        </g>
+                    </svg>
                 </div>
             </div>
             <div class="col-md-5 col-sm-12">
@@ -42,11 +43,11 @@
                                 <td>
                                     @if (tag.Id == Model.SelectTag.Id)
                                     {
-                                        <a asp-page="/Map" asp-route-tagId="@tag.Id" class="btn btn-dark nav-link active">@tag.Title</a>
+                                        <a asp-page="/Map" asp-route-tagId="@tag.Id" class="btn btn-dark nav-link active" id="@tag.Id">@tag.Title</a>
                                     }
                                     else
                                     {
-                                        <a asp-page="/Map" asp-route-tagId="@tag.Id" class="re nav-link">@tag.Title</a>
+                                        <a asp-page="/Map" asp-route-tagId="@tag.Id" class="re nav-link" id="@tag.Id">@tag.Title</a>
                                     }
                                 </td>
                                 <td class="text-end">
@@ -58,10 +59,11 @@
                                         <i class="bi bi-trash-fill"></i>
                                         Удалить
                                     </a>
-                                
+
 
                                 </td>
                             </tr>
+
                         }
                     </table>
 
@@ -251,7 +253,45 @@
 
 </div>
 
+@if (Model.GeoTags != null && Model.GeoTags.Any())
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function() { // один слушатель DOMContentLoaded
+
+            @foreach (var tag in Model.GeoTags)
+            {
+                <text>
+                    // Создаем переменную для ID элемента.  Важно экранировать кавычки внутри строки JavaScript.
+            var elementId = "@Html.Raw(tag.Id)";
+                var iconId="@Html.Raw(tag.Icon)";
+document.getElementById(elementId).addEventListener("click", function () {
+                // alert(iconId);
+    let iconElement = document.createElement('i');
+    if (iconId === "2") {
+        iconElement.classList.add('bi', 'bi-house-door-fill');
+    } else {
+        iconElement.classList.add('bi', 'bi-bicycle');
+    }
+
+    let alertBox = document.createElement('div');
+    alertBox.style.position = 'fixed';
+    alertBox.style.top = '50%';
+    alertBox.style.left = '50%';
+    alertBox.style.transform = 'translate(-50%, -50%)';
+    alertBox.style.padding = '20px';
+    alertBox.style.backgroundColor = 'white';
+    alertBox.style.border = '1px solid black';
+    document.body.appendChild(alertBox);
+
+    setTimeout(() => alertBox.remove(), 20000); // Автоудаление через 2 сек
+});
+ 
+
+                </text>
+            }
+        });
+    </script>
+}
 
 
-
-
+ 

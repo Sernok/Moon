@@ -43,6 +43,20 @@ namespace WebApplication1
 
             app.UseAuthorization();
 
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            // ”становка кодировки по умолчанию дл€ ответов
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("Content-Type", "text/html; charset=utf-8");
+                await next.Invoke();
+            });
+
             app.MapRazorPages();
 
             app.Run();

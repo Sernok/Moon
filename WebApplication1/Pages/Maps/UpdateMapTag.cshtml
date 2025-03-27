@@ -47,20 +47,13 @@
                     <div class="col-12">
                         <label for="construction" class="form-label">Тип объекта</label>
                         <div class="col-12">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="ListButton">
-                                    @Model.GeoTag.Construction
-                                </button>
-                                @await Html.PartialAsync("List")
-                            </div>
-                            <input type="hidden" id="Construction" name="Construction">
-                        </div>
-                        <input id="form-path" name="path" type="hidden" />
-                    </div>
+                            <textarea readonly id="construction" name="construction" class="form-control" rows="3" value="@Model.GeoTag.Construction">@Model.GeoTag.Construction</textarea>
+                         </div>
+                     </div>
 
                     <input id="id" name="id" type="hidden" value="@Model.GeoTag.Id" />
                     <input id="form-path" name="path" type="hidden" value="@Model.GeoTag.Path" />
-
+ 
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary me-1">Сохранить</button>
                         <a asp-page="/Map" class="btn btn-primary me-1">Отменить</a>
@@ -69,4 +62,5 @@
             </div>
         </div>
     </div>
-}
+ }
+ 

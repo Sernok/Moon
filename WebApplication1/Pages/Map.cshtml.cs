@@ -41,4 +41,5 @@ public class MapModel : PageModel
             logger.LogError($"Произошла ошибка при получении данных тегов карт для отображения: {exception.Message}.");
         }
     }
+
 }
