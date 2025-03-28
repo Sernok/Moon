@@ -1,243 +1,272 @@
 ﻿@page
 @using WebApplication1.Models
 @model CreateMapTagModel
- 
+
 @{
-    ViewData["Title"] = "Добавление тега карты";
+	ViewData["Title"] = "Добавление тега карты";
 }
 
 <h1 class="display-4">Добавление тега карты</h1>
 <hr class="mb-5" />
 <div class="row g-1">
-    <div class="col-md-6 col-sm-12">
-        <div class="border border-1 border-secondary rounded">
-            <svg id="map-svg" width="100%" height="auto" viewBox="0 0 1724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-            <defs id="defs" />
-            <g id="layer-fon">
-            <image id="fon" x="0" y="0" width="1724" height="1728" xlink:href="/images/main/Map.png" preserveAspectRatio="none" />
-            </g>
-            <g id="layer-view">
-            <polygon id="view-polygon" points="0 0" />
-            </g>
-            </svg>
-            <div class="d-flex justify-content-center m-1">
-                <button id="clear-path" class="btn btn-info">Очистить регион</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-sm-12">
-        <div class="border border-1 border-secondary rounded p-2">
-            <form id="edit-form" asp-page="/Maps/CreateMapTag" method="post" enctype="application/x-www-form-urlencoded" class="row g-3">
-                <div class="col-12">
-                    <label for="title" class="form-label">Заголовок</label>
-                    <input id="title" name="title" type="text" class="form-control">
-                </div>
-                <div class="col-12">
-                    <label for="description" class="form-label">Описание</label>
-                    <textarea id="description" name="description" class="form-control" rows="3"></textarea>
-                </div>
+	<div class="col-md-6 col-sm-12">
+		<div class="border border-1 border-secondary rounded">
+			<svg id="map-svg" width="100%" height="auto" viewBox="0 0 1724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+				<defs id="defs" />
+					<g id="layer-fon">
+						<image id="fon" x="0" y="0" width="1724" height="1728" xlink:href="/images/main/Map.png" preserveAspectRatio="none" />
+					</g>
+					<g id="layer-view">
+					<polygon id="view-polygon" points="0 0" />
+					</g>
+			</svg>
+			<div class="d-flex justify-content-center m-1">
+				<button id="clear-path" class="btn btn-info">Очистить регион</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-sm-12">
+		<div class="border border-1 border-secondary rounded p-2">
+			<form id="edit-form" asp-page="/Maps/CreateMapTag" method="post" enctype="application/x-www-form-urlencoded" class="row g-3">
+				<div class="col-12">
+					<label for="title" class="form-label">Заголовок</label>
+					<input id="title" name="title" type="text" class="form-control">
+				</div>
+				<div class="col-12">
+					<label for="description" class="form-label">Описание</label>
+					<textarea id="description" name="description" class="form-control" rows="3"></textarea>
+				</div>
 
-                <div class="col-12">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="ListButton">
-                            Выберите значение
-                        </button>
+				<div class="col-12">
+					<div class="btn-group">
+						<button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="ListButton">
+							Выберите значение
+						</button>
 
-                        <ul id="construction" class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" value="Жилые модули">
-                                    <i class="bi bi-house-door-fill pe-1"></i>
-                                    Жилые модули
-                                </a>
-                           </li>
-                            <li>
-                                <a class="dropdown-item" value="Спортивные модули">
-                                    <i class="bi bi-bicycle  pe-1">
-                                    </i>
-                                    Спортивные модули
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Административные модули">
-                                    <i class="bi bi-building pe-1"></i>
-                                    Административные модули
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Медицинские модули">
-                                    <i class="bi bi-heart-pulse-fill  pe-1">
-                                    </i>
-                                    Медицинские модули
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Исследовательские модули">
-                                    <i class="bi bi-binoculars-fill  pe-1">
-                                    </i>
-                                    Исследовательские модули
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Ремонтные модули">
-                                    <i class="fa-solid fa-screwdriver-wrench  pe-1">
-                                    </i>
-                                    Ремонтные модули
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Космодромы">
-                                    <i class="fa-solid fa-rocket  pe-1">
-                                    </i>
-                                    Космодромы
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Вышки связи">
-                                    <i class="fa-solid fa-satellite-dish pe-1">
-                                    </i>
-                                    Вышки связи
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Плантации">
-                                    <i class="fa-solid fa-spa pe-1">
-                                    </i>
-                                    Плантации
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Мусорные полигоны">
-                                    <i class="fa-solid fa-trash pe-1">
-                                    </i>
-                                    Мусорные полигоны
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Производственные предприятия">
-                                    <i class="fa-solid fa-industry pe-1">
-                                    </i>Производственные предприятия
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Астрономические площадки">
-                                    <i class="fa-solid fa-eye pe-1">
-                                    </i>Астрономические площадки
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Солнечные электростанции">
-                                    <i class=" fa-solid fa-solar-panel pe-1">
-                                    </i>Солнечные электростанции
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" value="Добывающие шахты">
-                                    <i class="fa-solid fa-helmet-safety pe-1">
-                                    </i>Добывающие шахты
-                                </a></a>
-                            </li>
-                        </ul>
-                        <input type="hidden" id="Construction" name="Construction">
-                    </div>
-                    <input id="form-path" name="path" type="hidden" />
-                </div>
+						<ul id="construction" class="dropdown-menu">
+							<li>
+								<a class="dropdown-item" value="Жилые модули">
+									<i class="bi bi-house-door-fill pe-1"></i>
+									Жилые модули
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Спортивные модули">
+									<i class="bi bi-bicycle  pe-1">
+									</i>
+									Спортивные модули
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Административные модули">
+									<i class="bi bi-building pe-1"></i>
+									Административные модули
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Медицинские модули">
+									<i class="bi bi-heart-pulse-fill  pe-1">
+									</i>
+									Медицинские модули
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Исследовательские модули">
+									<i class="bi bi-binoculars-fill  pe-1">
+									</i>
+									Исследовательские модули
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Ремонтные модули">
+									<i class="fa-solid fa-screwdriver-wrench  pe-1">
+									</i>
+									Ремонтные модули
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Космодромы">
+									<i class="fa-solid fa-rocket  pe-1">
+									</i>
+									Космодромы
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Вышки связи">
+									<i class="fa-solid fa-satellite-dish pe-1">
+									</i>
+									Вышки связи
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Плантации">
+									<i class="fa-solid fa-spa pe-1">
+									</i>
+									Плантации
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Мусорные полигоны">
+									<i class="fa-solid fa-trash pe-1">
+									</i>
+									Мусорные полигоны
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Производственные предприятия">
+									<i class="fa-solid fa-industry pe-1">
+									</i>Производственные предприятия
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Астрономические площадки">
+									<i class="fa-solid fa-eye pe-1">
+									</i>Астрономические площадки
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Солнечные электростанции">
+									<i class=" fa-solid fa-solar-panel pe-1">
+									</i>Солнечные электростанции
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" value="Добывающие шахты">
+									<i class="fa-solid fa-helmet-safety pe-1">
+									</i>Добывающие шахты
+								</a></a>
+							</li>
+						</ul>
+						<input type="hidden" id="Construction" name="Construction">
+					</div>
+					<input id="form-path" name="path" type="hidden" />
+				</div>
 
-                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary me-1" >Сохранить</button>
-                    <a asp-page="/Map" class="btn btn-primary me-1">Отменить</a>
-                </div>
-                <input type="hidden" id="Icon" name="Icon">
+				<div class="d-flex justify-content-end">
+					<button type="submit" class="btn btn-primary me-1">Сохранить</button>
+					<a asp-page="/Map" class="btn btn-primary me-1">Отменить</a>
+				</div>
+				<input type="hidden" id="Icon" name="Icon">
 
-            </form>
-        </div>
-    </div>
+			</form>
+		</div>
+	</div>
 </div>
 
 <script>
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-        item.addEventListener('click', function () {
-            let selectedValue = this.getAttribute('value'); // Получаем значение
-            document.getElementById('Construction').value = selectedValue; // Записываем в скрытое поле
-            const button = document.getElementById("ListButton");
-            button.textContent = selectedValue;
+	document.querySelectorAll('.dropdown-item').forEach(item => {
+		item.addEventListener('click', function () {
+			let selectedValue = this.getAttribute('value'); // Получаем значение
+			document.getElementById('Construction').value = selectedValue; // Записываем в скрытое поле
+			const button = document.getElementById("ListButton");
+			button.textContent = selectedValue;
 
-            let  idValue; // Переменная для хранения значения ID
-            
-            switch (selectedValue) {
-                case "Жилые модули":
-                  idValue = 1;
-                  break;
+			let  idValue; // Переменная для хранения значения ID
+			let iconElement = document.createElement('i');
 
-                case "Спортивные модули":
-                  idValue = 2;
-                  break;
+			switch (selectedValue) {
+				case "Жилые модули":
 
-                case "Административные модули":
-                  idValue = 3;
-                  break;
+				  iconElement.classList.add('bi', 'bi-house-door-fill');
+				  idValue = 1;
+				  break;
 
-                case "Медицинские модули":
-                  idValue = 4;
-                  break;
+				case "Спортивные модули":
+					 iconElement.classList.add('bi', 'bi-bicycle');
+				  idValue = 2;
+				  break;
 
-                case "Исследовательские модули":
-                  idValue = 5;
-                  break;
+				case "Административные модули":
+					iconElement.classList.add('bi', 'bi-building');
+				  idValue = 3;
+				  break;
 
-                case "Ремонтные модули":
-                  idValue = 6;
-                  break;
+				case "Медицинские модули":
+					iconElement.classList.add('bi', 'bi-heart-pulse-fill');
+				  idValue = 4;
+				  break;
 
-                case "Космодромы":
-                  idValue = 7;
-                  break;
+				case "Исследовательские модули":
+					iconElement.classList.add('bi', 'bi-binoculars-fill');
+				  idValue = 5;
+				  break;
 
-                case "Вышки связи":
-                  idValue = 8;
-                  break;
+				case "Ремонтные модули":
+					iconElement.classList.add('fa-solid', 'fa-screwdriver-wrench');
+				  idValue = 6;
+				  break;
 
-                case "Плантации":
-                  idValue = 9;
-                  break;
+				case "Космодромы":
+					iconElement.classList.add('fa-solid', 'fa-rocket');
+				  idValue = 7;
+				  break;
 
-                case "Мусорные полигоны":
-                  idValue = 10;
-                  break;
+				case "Вышки связи":
+					iconElement.classList.add('fa-solid', 'fa-satellite-dish');
+				  idValue = 8;
+				  break;
 
-                case "Производственные предприятия":
-                  idValue = 11;
-                  break;
+				case "Плантации":
+					iconElement.classList.add('fa-solid', 'fa-spa');
+				  idValue = 9;
+				  break;
 
-                case "Астрономические площадки":
-                  idValue = 12;
-                  break;
+				case "Мусорные полигоны":
+					iconElement.classList.add('fa-solid', 'fa-trash');
+				  idValue = 10;
+				  break;
 
-                case "Солнечные электростанции":
-                  idValue = 13;
-                  break;
+				case "Производственные предприятия":
+					iconElement.classList.add('fa-solid', 'fa-industry');
+				  idValue = 11;
+				  break;
 
-                case "Добывающие шахты":
-                  idValue = 14;
-                  break;
-                default:
-                  idValue = 0; // Или какое-то значение по умолчанию, если ничего не выбрано или выбрано что-то другое
-                  console.warn("Неизвестное значение selectedValue:", selectedValue); // Выводим предупреждение в консоль
-                  break;
-              }
-              alert(idValue);
+				case "Астрономические площадки":
+					iconElement.classList.add('fa-solid', 'fa-eye');
+				  idValue = 12;
+				  break;
 
-            document.getElementById('Icon').value = idValue;
+				case "Солнечные электростанции":
+					iconElement.classList.add('fa-solid', 'fa-solar-panel');
+				  idValue = 13;
+				  break;
 
-   
+				case "Добывающие шахты":
+					iconElement.classList.add('fa-solid', 'fa-helmet-safety');
+				  idValue = 14;
+				  break;
+				default:
+				  idValue = 0; // Или какое-то значение по умолчанию, если ничего не выбрано или выбрано что-то другое
+				  console.warn("Неизвестное значение selectedValue:", selectedValue); // Выводим предупреждение в консоль
+				  break;
+			  }
+			  //alert(idValue);
 
-              
-            
-            });
-    });
+				iconElement.setAttribute('x', iconCenter.x.toString());
+				iconElement.setAttribute('y', iconCenter.y.toString());
 
-            //document.getElementById('savebutton').addEventListener("click", function() {
-           // document.getElementById('ID').value = idcounter;
-           // idcounter++;
-           // });
-        
+				iconElement.style.padding = '20px';
+				iconElement.style.color = 'darkgreen';
+
+				let svg = document.getElementById("map-svg"); 
+				svg.appendChild(iconElement);
+				 // Автоудаление через 2 сек
+
+
+
+
+				document.getElementById('Icon').value = idValue;
+
+
+
+
+
+			});
+	});
+
+			//document.getElementById('savebutton').addEventListener("click", function() {
+		   // document.getElementById('ID').value = idcounter;
+		   // idcounter++;
+		   // });
+
 </script>
