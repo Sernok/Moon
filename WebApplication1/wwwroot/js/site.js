@@ -13,7 +13,9 @@ function selectGeotag(event, polygonId, path) {
 }
 
 
-function findOptimalCenter(points, learningRate = 0.1, maxIterations = 100) {
+//function findOptimalCenter(points, learningRate = 0.1, maxIterations = 100) {
+function findOptimalCenter(points) {
+
     if (!points || points.length === 0) {
         return null;
     }
@@ -23,29 +25,30 @@ function findOptimalCenter(points, learningRate = 0.1, maxIterations = 100) {
     for (const point of points) {
         currentCenter.x += point.x;
         currentCenter.y += point.y;
+        console.log("Коордиинаты поставленных точек:", currentCenter.x, currentCenter.y)
     }
     currentCenter.x /= points.length;
     currentCenter.y /= points.length;
 
     // 2. Градиентный спуск
-    for (let i = 0; i < maxIterations; i++) {
-        let gradientX = 0;
-        let gradientY = 0;
+    //for (let i = 0; i < maxIterations; i++) {
+    //    let gradientX = 0;
+   //     let gradientY = 0;
 
-        for (const point of points) {
-            const dx = currentCenter.x - point.x;
-            const dy = currentCenter.y - point.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+   //    for (const point of points) {
+   //         const dx = currentCenter.x - point.x;
+   //         const dy = currentCenter.y - point.y;
+    //        const distance = Math.sqrt(dx * dx + dy * dy);
 
-            if (distance > 0) {
-                gradientX += dx / distance;
-                gradientY += dy / distance;
-            }
-        }
+   //         if (distance > 0) {
+   //             gradientX += dx / distance;
+   //             gradientY += dy / distance;
+   //         }
+   //     }
 
-        currentCenter.x -= learningRate * gradientX;
-        currentCenter.y -= learningRate * gradientY;
-    }
+  //      currentCenter.x -= learningRate * gradientX;
+  //      currentCenter.y -= learningRate * gradientY;
+  //  }
 
     return currentCenter;
 }

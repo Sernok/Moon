@@ -10,7 +10,7 @@
 <hr class="mb-5" />
 <div class="row g-1">
 	<div class="col-md-6 col-sm-12">
-		<div class="border border-1 border-secondary rounded">
+		<div class="border border-1 border-secondary rounded" style="position: relative;">
 			<svg id="map-svg" width="100%" height="auto" viewBox="0 0 1724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
 				<defs id="defs" />
 					<g id="layer-fon">
@@ -19,7 +19,9 @@
 					<g id="layer-view">
 					<polygon id="view-polygon" points="0 0" />
 					</g>
+			<i id="map-icon"  style="position: absolute;"></i>
 			</svg>
+
 			<div class="d-flex justify-content-center m-1">
 				<button id="clear-path" class="btn btn-info">Очистить регион</button>
 			</div>
@@ -163,7 +165,11 @@
 
 			let  idValue; // Переменная для хранения значения ID
 			let iconElement = document.createElement('i');
-
+			//let textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+			let iconContainer = document.getElementById('map-icon');
+			if (iconContainer.firstChild) {
+				iconContainer.removeChild(iconContainer.firstChild);
+			}
 			switch (selectedValue) {
 				case "Жилые модули":
 
@@ -241,16 +247,22 @@
 				  break;
 			  }
 			  //alert(idValue);
+					//iconElement.id = `icon-${idValue}`;
 
-				iconElement.setAttribute('x', iconCenter.x.toString());
-				iconElement.setAttribute('y', iconCenter.y.toString());
+				  //iconElement.style.top = '150px';  // Настроить по вашему усмотрению
+				//	iconElement.style.left = '200px'; // Настроить по вашему усмотрению
+					iconElement.style.fontSize = '30px';  // Размер иконки
+
+				//iconContainer.setAttribute('x', iconCenter.x.toString());
+				//iconContainer.setAttribute('y', iconCenter.y.toString());
+ 
+				iconContainer.style.top = `${iconCenter.y}px`;
+				iconContainer.style.left = `${iconCenter.x}px`;
 
 				iconElement.style.padding = '20px';
 				iconElement.style.color = 'darkgreen';
 
-				let svg = document.getElementById("map-svg"); 
-				svg.appendChild(iconElement);
-				 // Автоудаление через 2 сек
+				iconContainer.appendChild(iconElement);
 
 
 
