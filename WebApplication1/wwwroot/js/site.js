@@ -14,7 +14,7 @@ function selectGeotag(event, polygonId, path) {
 
 
 //function findOptimalCenter(points, learningRate = 0.1, maxIterations = 100) {
-function findOptimalCenter(points) {
+function findOptimalCenter(points, learningRate = 0.1, maxIterations = 100) {
 
     if (!points || points.length === 0) {
         return null;
@@ -25,10 +25,14 @@ function findOptimalCenter(points) {
     for (const point of points) {
         currentCenter.x += point.x;
         currentCenter.y += point.y;
-        console.log("Коордиинаты поставленных точек:", currentCenter.x, currentCenter.y)
+        //console.log("Коордиинаты поставленных точек:", currentCenter.x, currentCenter.y)
     }
+    console.log("до деления координаты точек", currentCenter.x, currentCenter.y, points.length)
+
     currentCenter.x /= points.length;
+
     currentCenter.y /= points.length;
+    console.log("после деления", currentCenter.x, currentCenter.y)
 
     // 2. Градиентный спуск
     //for (let i = 0; i < maxIterations; i++) {
@@ -38,17 +42,17 @@ function findOptimalCenter(points) {
    //    for (const point of points) {
    //         const dx = currentCenter.x - point.x;
    //         const dy = currentCenter.y - point.y;
-    //        const distance = Math.sqrt(dx * dx + dy * dy);
+   //         const distance = Math.sqrt(dx * dx + dy * dy);
 
-   //         if (distance > 0) {
-   //             gradientX += dx / distance;
-   //             gradientY += dy / distance;
-   //         }
-   //     }
-
+  //          if (distance > 0) {
+  //              gradientX += dx / distance;
+  //              gradientY += dy / distance;
+  //          }
+  //     }
+  //
   //      currentCenter.x -= learningRate * gradientX;
   //      currentCenter.y -= learningRate * gradientY;
-  //  }
+   // }
 
     return currentCenter;
 }
@@ -70,8 +74,8 @@ function draw() {
         var path = document.getElementById("form-path");
         if (polygon && path) {
             var array = points.map(function (value) { return value; });
-            array.push(points[0]);
-            console.log(array);
+            //array.push(points[0]);
+            console.log("список итого", array);
             var value = build(points);
             path.setAttribute("value", value);
             polygon.setAttribute("points", value);

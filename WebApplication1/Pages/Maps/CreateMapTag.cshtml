@@ -5,13 +5,13 @@
 @{
 	ViewData["Title"] = "Добавление тега карты";
 }
-
-<h1 class="display-4">Добавление тега карты</h1>
-<hr class="mb-5" />
+<hr class="mb-1" />
+<h1 class="display-4 fortext">Добавление объекта</h1>
+<hr class="mb-4" />
 <div class="row g-1">
 	<div class="col-md-6 col-sm-12">
 		<div class="border border-1 border-secondary rounded" style="position: relative;">
-			<svg id="map-svg" width="100%" height="auto" viewBox="0 0 1724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+			<svg id="map-svg" width="100%" height="auto" viewBox="0 0 1724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" style="position: relative;">
 				<defs id="defs" />
 					<g id="layer-fon">
 						<image id="fon" x="0" y="0" width="1724" height="1728" xlink:href="/images/main/Map.png" preserveAspectRatio="none" />
@@ -19,7 +19,9 @@
 					<g id="layer-view">
 					<polygon id="view-polygon" points="0 0" />
 					</g>
-			<i id="map-icon"  style="position: absolute;"></i>
+					<g>
+			<i id="map-icon" style="position: absolute; pointer-events: none;"></i>
+					</g>
 			</svg>
 
 			<div class="d-flex justify-content-center m-1">
@@ -27,7 +29,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-6 col-sm-12">
+	<div class="col-md-6 col-sm-12 fortext">
 		<div class="border border-1 border-secondary rounded p-2">
 			<form id="edit-form" asp-page="/Maps/CreateMapTag" method="post" enctype="application/x-www-form-urlencoded" class="row g-3">
 				<div class="col-12">
@@ -35,7 +37,7 @@
 					<input id="title" name="title" type="text" class="form-control">
 				</div>
 				<div class="col-12">
-					<label for="description" class="form-label">Описание</label>
+					<label for="description" class="form-label fortext">Описание</label>
 					<textarea id="description" name="description" class="form-control" rows="3"></textarea>
 				</div>
 
@@ -143,142 +145,141 @@
 					</div>
 					<input id="form-path" name="path" type="hidden" />
 				</div>
+				<input id="IconClass" name="IconClass" type="hidden" />
 
 				<div class="d-flex justify-content-end">
 					<button type="submit" class="btn btn-primary me-1">Сохранить</button>
 					<a asp-page="/Map" class="btn btn-primary me-1">Отменить</a>
 				</div>
 				<input type="hidden" id="Icon" name="Icon">
-
+				<input type="hidden" id="CenterIcon" name="CenterIcon">
+ 
 			</form>
 		</div>
 	</div>
 </div>
 
 <script>
-	document.querySelectorAll('.dropdown-item').forEach(item => {
+	  document.querySelectorAll('.dropdown-item').forEach(item => {
 		item.addEventListener('click', function () {
-			let selectedValue = this.getAttribute('value'); // Получаем значение
-			document.getElementById('Construction').value = selectedValue; // Записываем в скрытое поле
-			const button = document.getElementById("ListButton");
-			button.textContent = selectedValue;
+		  let selectedValue = this.getAttribute('value');
+		  document.getElementById('Construction').value = selectedValue;
 
-			let  idValue; // Переменная для хранения значения ID
-			let iconElement = document.createElement('i');
-			//let textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-			let iconContainer = document.getElementById('map-icon');
-			if (iconContainer.firstChild) {
-				iconContainer.removeChild(iconContainer.firstChild);
+		  const button = document.getElementById("ListButton");
+		  button.textContent = selectedValue;
+
+		  let idValue;
+		  let iconClass = [];
+		  let centerIcon = [];
+
+		  switch (selectedValue) {
+			case "Жилые модули":
+			  iconClass = ["bi", "bi-house-door-fill"];
+			  idValue = 1;
+			  break;
+			case "Спортивные модули":
+			  iconClass = ["bi", "bi-bicycle"];
+			  idValue = 2;
+			  break;
+			case "Административные модули":
+			  iconClass = ["bi", "bi-building"];
+			  idValue = 3;
+			  break;
+			case "Медицинские модули":
+			  iconClass = ["bi", "bi-heart-pulse-fill"];
+			  idValue = 4;
+			  break;
+			case "Исследовательские модули":
+			  iconClass = ["bi", "bi-binoculars-fill"];
+			  idValue = 5;
+			  break;
+			case "Ремонтные модули":
+			  iconClass = ["fa-solid", "fa-screwdriver-wrench"];
+			  idValue = 6;
+			  break;
+			case "Космодромы":
+			  iconClass = ["fa-solid", "fa-rocket"];
+			  idValue = 7;
+			  break;
+			case "Вышки связи":
+			  iconClass = ["fa-solid", "fa-satellite-dish"];
+			  idValue = 8;
+			  break;
+			case "Плантации":
+			  iconClass = ["fa-solid", "fa-spa"];
+			  idValue = 9;
+			  break;
+			case "Мусорные полигоны":
+			  iconClass = ["fa-solid", "fa-trash"];
+			  idValue = 10;
+			  break;
+			case "Производственные предприятия":
+			  iconClass = ["fa-solid", "fa-industry"];
+			  idValue = 11;
+			  break;
+			case "Астрономические площадки":
+			  iconClass = ["fa-solid", "fa-eye"];
+			  idValue = 12;
+			  break;
+			case "Солнечные электростанции":
+			  iconClass = ["fa-solid", "fa-solar-panel"];
+			  idValue = 13;
+			  break;
+			case "Добывающие шахты":
+			  iconClass = ["fa-solid", "fa-helmet-safety"];
+			  idValue = 14;
+			  break;
+			default:
+			  idValue = 0;
+			  console.warn("Неизвестное значение selectedValue:", selectedValue);
+			  return;
+		  }
+
+		  const polygons = document.querySelectorAll("#layer-view polygon");
+
+		  polygons.forEach(polygon => {
+			const points = polygon.getAttribute("points")
+			  .split(" ")
+			  .map(p => p.split(",").map(Number));
+
+			if (points.length > 1) {
+			  const centerX = points.reduce((sum, p) => sum + p[0], 0) / points.length;
+			  const centerY = points.reduce((sum, p) => sum + p[1], 0) / points.length;
+			  centerIcon = [centerX, centerY];
+			  console.log(centerIcon)
+
+			  // Удаляем предыдущие иконки
+			  const existingIcons = polygon.parentNode.querySelectorAll('.polygon-icon');
+			  existingIcons.forEach(icon => icon.remove());
+
+			  const iconContainer = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+			  iconContainer.setAttribute("x", centerX - 12);
+			  iconContainer.setAttribute("y", centerY - 12);
+			  iconContainer.setAttribute("width", "100");
+			  iconContainer.setAttribute("height", "100");
+			  iconContainer.classList.add("polygon-icon"); // Класс для удаления старых иконок
+
+			  const div = document.createElement("div");
+			  div.style.width = "100%";
+			  div.style.height = "100%";
+			  div.style.display = "flex";
+			  div.style.alignItems = "center";
+			  div.style.justifyContent = "center";
+			  div.style.color = "darkgreen";
+			  const iconElement = document.createElement("i");
+			  iconElement.classList.add(...iconClass);
+			  iconElement.style.fontSize = "100px";
+
+			  div.appendChild(iconElement);
+			  iconContainer.appendChild(div);
+			  polygon.parentNode.appendChild(iconContainer);
 			}
-			switch (selectedValue) {
-				case "Жилые модули":
+		  });
+	// Передаем массив иконок в строку с пробелами для скрытого поля
+	document.getElementById('IconClass').value = iconClass.join(' ');
+		  document.getElementById('Icon').value = idValue;
+			document.getElementById('CenterIcon').value = centerIcon.join(' ')
 
-				  iconElement.classList.add('bi', 'bi-house-door-fill');
-				  idValue = 1;
-				  break;
-
-				case "Спортивные модули":
-					 iconElement.classList.add('bi', 'bi-bicycle');
-				  idValue = 2;
-				  break;
-
-				case "Административные модули":
-					iconElement.classList.add('bi', 'bi-building');
-				  idValue = 3;
-				  break;
-
-				case "Медицинские модули":
-					iconElement.classList.add('bi', 'bi-heart-pulse-fill');
-				  idValue = 4;
-				  break;
-
-				case "Исследовательские модули":
-					iconElement.classList.add('bi', 'bi-binoculars-fill');
-				  idValue = 5;
-				  break;
-
-				case "Ремонтные модули":
-					iconElement.classList.add('fa-solid', 'fa-screwdriver-wrench');
-				  idValue = 6;
-				  break;
-
-				case "Космодромы":
-					iconElement.classList.add('fa-solid', 'fa-rocket');
-				  idValue = 7;
-				  break;
-
-				case "Вышки связи":
-					iconElement.classList.add('fa-solid', 'fa-satellite-dish');
-				  idValue = 8;
-				  break;
-
-				case "Плантации":
-					iconElement.classList.add('fa-solid', 'fa-spa');
-				  idValue = 9;
-				  break;
-
-				case "Мусорные полигоны":
-					iconElement.classList.add('fa-solid', 'fa-trash');
-				  idValue = 10;
-				  break;
-
-				case "Производственные предприятия":
-					iconElement.classList.add('fa-solid', 'fa-industry');
-				  idValue = 11;
-				  break;
-
-				case "Астрономические площадки":
-					iconElement.classList.add('fa-solid', 'fa-eye');
-				  idValue = 12;
-				  break;
-
-				case "Солнечные электростанции":
-					iconElement.classList.add('fa-solid', 'fa-solar-panel');
-				  idValue = 13;
-				  break;
-
-				case "Добывающие шахты":
-					iconElement.classList.add('fa-solid', 'fa-helmet-safety');
-				  idValue = 14;
-				  break;
-				default:
-				  idValue = 0; // Или какое-то значение по умолчанию, если ничего не выбрано или выбрано что-то другое
-				  console.warn("Неизвестное значение selectedValue:", selectedValue); // Выводим предупреждение в консоль
-				  break;
-			  }
-			  //alert(idValue);
-					//iconElement.id = `icon-${idValue}`;
-
-				  //iconElement.style.top = '150px';  // Настроить по вашему усмотрению
-				//	iconElement.style.left = '200px'; // Настроить по вашему усмотрению
-					iconElement.style.fontSize = '30px';  // Размер иконки
-
-				//iconContainer.setAttribute('x', iconCenter.x.toString());
-				//iconContainer.setAttribute('y', iconCenter.y.toString());
- 
-				iconContainer.style.top = `${iconCenter.y}px`;
-				iconContainer.style.left = `${iconCenter.x}px`;
-
-				iconElement.style.padding = '20px';
-				iconElement.style.color = 'darkgreen';
-
-				iconContainer.appendChild(iconElement);
-
-
-
-
-				document.getElementById('Icon').value = idValue;
-
-
-
-
-
-			});
-	});
-
-			//document.getElementById('savebutton').addEventListener("click", function() {
-		   // document.getElementById('ID').value = idcounter;
-		   // idcounter++;
-		   // });
-
+		});
+	  });
 </script>

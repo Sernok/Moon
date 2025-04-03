@@ -16,9 +16,12 @@ namespace WebApplication1.Models {
 
         public string Path { get; set; } = string.Empty;
 
-        public int ID { get; set; } 
+        public string CenterIcon { get; set; } = string.Empty;
         public static int idcounter = 0;
 
         public int Icon { get; set; }
+        public string IconClass { get; set; } = string.Empty;
+
+
     }
 }

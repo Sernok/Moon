@@ -12,10 +12,12 @@
         <g id="layer-fon">
             <image id="fon" x="0" y="0" width="2724" height="1728" xlink:href="/images/main/Map.png" />
         </g>
+
         <g id="layer-view">
             @foreach (var tag in Model.GeoTags)
             {
-                <polygon points="@tag.Path" class="fa-solid fa-helmet-safety" fill="rgba(255, 0, 0, 0.5)" stroke="black" stroke-width="2" />
+                <polygon points="@tag.Path"  fill="rgba(255, 0, 0, 0.5)" stroke="black" stroke-width="2" />
+                <a  id="@tag.Id" data-value1="@tag.IconClass" data-value2="@tag.CenterIcon"> </a>
             }
         </g>
     </svg>
@@ -160,12 +162,57 @@
 
 
     </div>
- 
+    <script>
+
+             document.addEventListener("DOMContentLoaded", function () {
+            // Проходим по всем ссылкам, которые имеют атрибут data-value1 и data-value2
+            let links = document.querySelectorAll("a[data-value1][data-value2]");
+
+            links.forEach(function(foreignObject) {
+                let value1 = foreignObject.dataset.value1; // Получаем значение data-value1
+                let value2 = foreignObject.dataset.value2; // Получаем значение data-value2
+
+                let Seredina = value2.split(' '); // Разделяем значение value2 на координаты
+                console.log("середина", Seredina);
+                console.log("значение1", value1);
+
+                const iconContainer = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+                iconContainer.setAttribute("x", Seredina[0]);
+                iconContainer.setAttribute("y", Seredina[1]);
+                iconContainer.setAttribute("width", "100");
+                iconContainer.setAttribute("height", "100");
+
+                const div = document.createElement("div");
+                div.style.width = "100%";
+                div.style.height = "100%";
+                div.style.display = "flex";
+                div.style.alignItems = "center";
+                div.style.justifyContent = "center";
+                div.style.color = "darkgreen";
+
+                // Создание иконки
+                const iconElement = document.createElement("i");
+                iconElement.classList.add(...value1.split(' ')); // Применяем классы из value1
+                iconElement.style.fontSize = "100px";
+
+                // Добавляем элементы
+                div.appendChild(iconElement);
+                iconContainer.appendChild(div);
+
+                  const polygons = document.querySelectorAll("#layer-view polygon");
+              polygons.forEach(polygon => {
+                const points = polygon.getAttribute("points")
+                  .split(" ")
+                  .map(p => p.split(",").map(Number));
+                  polygon.parentNode.appendChild(iconContainer);
+
+                });
+            });
+        });
+    </script>
 
     <script type="text/javascript">
-
-
-
+                        
             document.getElementById('ok').addEventListener('click', function() {
             if (document.getElementById('link1').checked) {
                 window.location.href = '/residential';

@@ -6,7 +6,7 @@
 }
 
 
-<h1 class="display-4">Изменение тега карты</h1>
+<h1 class="display-4 fortext">Изменение тега карты</h1>
 <hr class="mb-5" />
 
 @if (Model.GeoTag == null) {
@@ -17,7 +17,7 @@
     <div class="row g-1">
         <div class="col-md-6 col-sm-12">
             <div class="border border-1 border-secondary rounded">
-                <svg id="map-svg" width="100%" height="auto" viewBox="0 0 1724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                <svg id="map-svg" width="100%" length="auto" viewBox="0 0 1724 1728" version="1.1" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
                 <defs id="defs" />
                 <g id="layer-fon">
                 <image id="fon" x="0" y="0" width="1724" height="1728" xlink:href="/images/main/Map.png" preserveAspectRatio="none" />
@@ -26,6 +26,9 @@
                 <polygon id="view-polygon" points="@Model.GeoTag.Path" />
                     </g>
                 </svg>
+                <g>
+                    <i id="map-icon" style="position: absolute; pointer-events: none;"></i>
+                </g>
                 <div class="d-flex justify-content-center m-1">
                     <button id="clear-path" class="btn btn-info">Очистить регион</button>
                 </div>
@@ -53,7 +56,13 @@
 
                     <input id="id" name="id" type="hidden" value="@Model.GeoTag.Id" />
                     <input id="form-path" name="path" type="hidden" value="@Model.GeoTag.Path" />
- 
+
+                    <input id="CenterIcon" name="CenterIcon" type="hidden" value="@Model.GeoTag.CenterIcon" />
+                    <input id="IconClass" name="IconClass" type="hidden" value="@Model.GeoTag.IconClass" />
+
+                    <a id="@Model.GeoTag.Id" data-value1="@Model.GeoTag.IconClass" data-value2="@Model.GeoTag.CenterIcon"> </a>
+
+
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary me-1">Сохранить</button>
                         <a asp-page="/Map" class="btn btn-primary me-1">Отменить</a>
@@ -63,4 +72,60 @@
         </div>
     </div>
  }
- 
+
+
+
+<script>
+
+         document.addEventListener("DOMContentLoaded", function () {
+        // Получаем выбранный tagId из URL или модели
+
+        // Проходим по всем ссылкам, которые имеют атрибут data-value1 и data-value2
+        let links = document.querySelectorAll("a[data-value1][data-value2]");
+
+        links.forEach(function(foreignObject) {
+            let value1 = foreignObject.dataset.value1; // Получаем значение data-value1
+            let value2 = foreignObject.dataset.value2; // Получаем значение data-value2
+            let tagId = foreignObject.id; // Получаем id текущего тега
+
+            // Отображаем иконки только для выбранного тега
+            //if (tagId === selectedTagId) {
+                let Seredina = value2.split(' '); // Разделяем значение value2 на координаты
+                console.log("середина", Seredina);
+                console.log("значение1", value1);
+
+                const iconContainer = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+                iconContainer.setAttribute("x", Seredina[0]);
+                iconContainer.setAttribute("y", Seredina[1]);
+                iconContainer.setAttribute("width", "100");
+                iconContainer.setAttribute("height", "100");
+
+                const div = document.createElement("div");
+                div.style.width = "100%";
+                div.style.height = "100%";
+                div.style.display = "flex";
+                div.style.alignItems = "center";
+                div.style.justifyContent = "center";
+                div.style.color = "darkgreen";
+
+                // Создание иконки
+                const iconElement = document.createElement("i");
+                iconElement.classList.add(...value1.split(' ')); // Применяем классы из value1
+                iconElement.style.fontSize = "100px";
+
+                // Добавляем элементы
+                div.appendChild(iconElement);
+                iconContainer.appendChild(div);
+
+                const polygons = document.querySelectorAll("#layer-view polygon");
+                polygons.forEach(polygon => {
+                    const points = polygon.getAttribute("points")
+                        .split(" ")
+                        .map(p => p.split(",").map(Number));
+                    polygon.parentNode.appendChild(iconContainer);
+                });
+            //}
+        });
+    });
+
+</script>

@@ -5,34 +5,48 @@
     "Description": "rgrggrrgege",
     "Construction": "Спортивные модули",
     "Path": "932,344 1367,493 851,860",
-    "ID": 0,
-    "Icon": 2
+    "CenterIcon": "923.4 648.6",
+    "Icon": 2,
+    "IconClass": "bi bi-bicycle"
   },
   {
-    "Id": "1e5ef51f-4d7c-47ab-9bc0-e55d28c73e25",
-    "Title": "45н54н45н54н",
-    "Description": "444444444554н",
-    "Construction": "Спортивные модули",
-    "Path": "1355,804 199,720 1023,124",
-    "ID": 0,
-    "Icon": 2
+    "Id": "cedd7b64-8007-49d2-b3cc-4c3462aac9a7",
+    "Title": "erfeferf",
+    "Description": "4t45t45t4t4t3",
+    "Construction": "Мусорные полигоны",
+    "Path": "1270,1444 1361,1016 1516,1272",
+    "CenterIcon": "1382.3333333333333 1244",
+    "Icon": 10,
+    "IconClass": "fa-solid fa-trash"
   },
   {
-    "Id": "d475b3a3-0f2e-4930-a456-9366eaf5e8d6",
-    "Title": "4п4п45п4",
-    "Description": "5н4н4н45н4",
-    "Construction": "Жилые модули",
-    "Path": "653,755 460,506 606,254 805,254 1076,484 1041,739 1069,708 1330,761 1442,699 1517,531 1399,347 1225,313 961,804",
-    "ID": 0,
-    "Icon": 1
+    "Id": "cd1f4ed4-6fdf-45da-b59f-8c2e1172cc43",
+    "Title": "ssaxasxxasxa",
+    "Description": "ewqeqweqqeqwe",
+    "Construction": "Добывающие шахты",
+    "Path": "269,1152 574,1313 395,1668",
+    "CenterIcon": "412.6666666666667 1377.6666666666667",
+    "Icon": 14,
+    "IconClass": "fa-solid fa-helmet-safety"
   },
   {
-    "Id": "27fcdb3e-c594-499e-b83f-8a4b1a5c0e8e",
-    "Title": "4а4а43а",
-    "Description": "4343ка43а34а",
-    "Construction": "Спортивные модули",
-    "Path": "1033,877 746,1282 660,273 19,40 647,91",
-    "ID": 0,
-    "Icon": 2
+    "Id": "172f2a0c-9f36-4dd9-a922-3d35e6627349",
+    "Title": "екпп43пп43п3",
+    "Description": "укпукпкупукп",
+    "Construction": "Плантации",
+    "Path": "1270,885 957,951 954,341 1404,277",
+    "CenterIcon": "1146.25 613.5",
+    "Icon": 9,
+    "IconClass": "fa-solid fa-spa"
+  },
+  {
+    "Id": "842c2428-d2ff-4509-accc-b01b3dfa7b7e",
+    "Title": "керкеркеркрерк3",
+    "Description": "ркеркек4",
+    "Construction": "Вышки связи",
+    "Path": "1430,914 1580,943 1345,1115 1101,1224 831,973 983,486",
+    "CenterIcon": "1069.3333333333333 906.6666666666666",
+    "Icon": 0,
+    "IconClass": "fa-solid fa-satellite-dish"
   }
 ]

@@ -31,6 +31,9 @@
                         <g id="layer-view">
                             <polygon points="@Model.SelectTag!.Path" />
                         </g>
+                          <g>
+                             <i id="map-icon" style="position: absolute; pointer-events: none;"></i>
+                         </g>
                     </svg>
                 </div>
             </div>
@@ -43,11 +46,14 @@
                                 <td>
                                     @if (tag.Id == Model.SelectTag.Id)
                                     {
-                                        <a asp-page="/Map" asp-route-tagId="@tag.Id" class="btn btn-dark nav-link active" id="@tag.Id">@tag.Title</a>
+                                        <a asp-page="/Map" asp-route-tagId="@tag.Id" class="btn btn-dark nav-link active" id="@tag.Id" data-value1="@tag.IconClass"
+                                           data-value2="@tag.CenterIcon">@tag.Title
+                                        </a>
                                     }
                                     else
                                     {
-                                        <a asp-page="/Map" asp-route-tagId="@tag.Id" class="re nav-link" id="@tag.Id">@tag.Title</a>
+                                        <a asp-page="/Map" asp-route-tagId="@tag.Id" class="re nav-link" id="@tag.Id" data-value1="@tag.IconClass"
+                                           data-value2="@tag.CenterIcon">@tag.Title</a>
                                     }
                                 </td>
                                 <td class="text-end">
@@ -76,6 +82,8 @@
                     <h4>@Model.SelectTag.Title</h4>
                     <p>@Model.SelectTag.Description</p>
                     <p>@Model.SelectTag.Construction</p>
+                    <input  type="hidden" id="Icon" name="Icon">
+                    <input  type="hidden" id="CenterIcon" name="CenterIcon">
 
                 </div>
             </div>
@@ -253,45 +261,61 @@
 
 </div>
 
-@if (Model.GeoTags != null && Model.GeoTags.Any())
-{
-    <script>
-        document.addEventListener("DOMContentLoaded", function() { // один слушатель DOMContentLoaded
-
-            @foreach (var tag in Model.GeoTags)
-            {
-                <text>
-                    // Создаем переменную для ID элемента.  Важно экранировать кавычки внутри строки JavaScript.
-            var elementId = "@Html.Raw(tag.Id)";
-                var iconId="@Html.Raw(tag.Icon)";
-document.getElementById(elementId).addEventListener("click", function () {
-                // alert(iconId);
-    let iconElement = document.createElement('i');
-    if (iconId === "2") {
-        iconElement.classList.add('bi', 'bi-house-door-fill');
-    } else {
-        iconElement.classList.add('bi', 'bi-bicycle');
-    }
-
-    let alertBox = document.createElement('div');
-    alertBox.style.position = 'fixed';
-    alertBox.style.top = '50%';
-    alertBox.style.left = '50%';
-    alertBox.style.transform = 'translate(-50%, -50%)';
-    alertBox.style.padding = '20px';
-    alertBox.style.backgroundColor = 'white';
-    alertBox.style.border = '1px solid black';
-    document.body.appendChild(alertBox);
-
-    setTimeout(() => alertBox.remove(), 20000); // Автоудаление через 2 сек
-});
  
 
-                </text>
+
+ <script>
+
+         document.addEventListener("DOMContentLoaded", function () {
+        // Получаем выбранный tagId из URL или модели
+        let selectedTagId = "@Model.SelectTag.Id";  // Подставляем id выбранного тега
+
+        // Проходим по всем ссылкам, которые имеют атрибут data-value1 и data-value2
+        let links = document.querySelectorAll("a[data-value1][data-value2]");
+
+        links.forEach(function(foreignObject) {
+            let value1 = foreignObject.dataset.value1; // Получаем значение data-value1
+            let value2 = foreignObject.dataset.value2; // Получаем значение data-value2
+            let tagId = foreignObject.id; // Получаем id текущего тега
+
+            // Отображаем иконки только для выбранного тега
+            if (tagId === selectedTagId) {
+                let Seredina = value2.split(' '); // Разделяем значение value2 на координаты
+                console.log("середина", Seredina);
+                console.log("значение1", value1);
+
+                const iconContainer = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+                iconContainer.setAttribute("x", Seredina[0]);
+                iconContainer.setAttribute("y", Seredina[1]);
+                iconContainer.setAttribute("width", "100");
+                iconContainer.setAttribute("height", "100");
+
+                const div = document.createElement("div");
+                div.style.width = "100%";
+                div.style.height = "100%";
+                div.style.display = "flex";
+                div.style.alignItems = "center";
+                div.style.justifyContent = "center";
+                div.style.color = "darkgreen";
+
+                // Создание иконки
+                const iconElement = document.createElement("i");
+                iconElement.classList.add(...value1.split(' ')); // Применяем классы из value1
+                iconElement.style.fontSize = "100px";
+
+                // Добавляем элементы
+                div.appendChild(iconElement);
+                iconContainer.appendChild(div);
+
+                const polygons = document.querySelectorAll("#layer-view polygon");
+                polygons.forEach(polygon => {
+                    const points = polygon.getAttribute("points")
+                        .split(" ")
+                        .map(p => p.split(",").map(Number));
+                    polygon.parentNode.appendChild(iconContainer);
+                });
             }
         });
-    </script>
-}
+    });
 
-
- 
+ </script>
